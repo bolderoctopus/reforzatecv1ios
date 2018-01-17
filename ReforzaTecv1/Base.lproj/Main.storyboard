@@ -434,7 +434,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zrx-U8-3tC" userLabel="lineaParrafo">
-                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="1"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="500" height="1"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                                         </view>
@@ -649,13 +649,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="correcto" translatesAutoresizingMaskIntoConstraints="NO" id="Vnd-8P-AS5" userLabel="calificacion">
-                                <rect key="frame" x="155" y="227.5" width="64" height="64"/>
+                                <rect key="frame" x="155.5" y="227.5" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="F7M-cb-s3t"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrD-Qe-sb5">
-                                <rect key="frame" x="112" y="335" width="150" height="150"/>
+                                <rect key="frame" x="112.5" y="335" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="nrD-Qe-sb5" secondAttribute="height" multiplier="1:1" id="IA4-hP-Gtl"/>
                                     <constraint firstAttribute="height" constant="150" id="wua-sR-sg8"/>

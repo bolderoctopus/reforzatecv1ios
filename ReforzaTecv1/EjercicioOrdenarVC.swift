@@ -78,7 +78,10 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
         AltoDeEtiqueta = nuevaLabel().frame.size.height
         //print("collectionView.frame.size.width: \(collectionView.frame.size.width)")
-        Fila.LargoMax = collectionView.frame.size.width
+        // movio a view did layout subs
+        let anchoPantalla = self.view.frame.size.width
+        let margenesYConstraints = CGFloat( (2 * 10) + (2 * 10))
+        Fila.LargoMax = anchoPantalla - margenesYConstraints
         
         EjercicioActual = Ejercicios.removeFirst()
         preguntaTextView.text = EjercicioActual.textos!
@@ -121,10 +124,10 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         // ocultando la imagen
         AlturaDeImagenConstraint.constant = 0
         CalificacionImageView.alpha = 0
-        print(AlturaViewControllerConstraint.constant)
+        //print(AlturaViewControllerConstraint.constant)
         AlturaViewControllerConstraint.constant =  BotonRevisar.frame.origin.y + BotonRevisar.frame.size.height  * 2
-        print(AlturaViewControllerConstraint.constant)
-        print(self.view.frame.size.height)
+        //print(AlturaViewControllerConstraint.constant)
+        //print(self.view.frame.size.height)
         
         // iniciando boton
         BotonRevisar.backgroundColor = UIColor.white
@@ -133,7 +136,10 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         BotonRevisar.layer.borderWidth = 1.5
         BotonRevisar.layer.borderColor = color.cgColor
         BotonRevisar.setTitleColor( #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1), for: .disabled)
+        collectionView.sizeToFit()
     }
+    
+   
     
     func nuevaLabel(_ titulo: String = "word") -> UILabel{
         let label = UILabel()
@@ -335,17 +341,17 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if(section == (collectionView.numberOfSections - 2)){
             // espacio entre la secion de respuestas y la de opcionnes
-            return CGSize.init(width: collectionView.frame.size.width, height: EspacioEntreSecciones)
+            return CGSize.init(width: Fila.LargoMax!, height: EspacioEntreSecciones)
         }
         else {// espacio normal entre renglones
-            return CGSize.init(width: collectionView.frame.size.width, height: EspacioEntreRenglones)
+            return CGSize.init(width: Fila.LargoMax!, height: EspacioEntreRenglones)
         }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if(collectionView.numberOfItems(inSection: section) == 0) {
-            // Darle una altura da las secciones vacias?
-            return CGSize.init(width: collectionView.frame.size.width, height: AltoDeEtiqueta + 1)
+            return CGSize.init(width: Fila.LargoMax!, height: AltoDeEtiqueta + 1)
         }else{
             // si tuviera la altura = 0 daria un bug cuando todas las palabras estan una seccion intermedia y luego intentas sacarla
             return CGSize(width: 0, height: 1)
@@ -366,6 +372,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         if(kind == "UICollectionElementKindSectionFooter"){
             // remueve la linea del parrafo del footer en caso de ser la ultima seccion (donde se encuentran las opciones)
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "collection_footer", for: indexPath)
+           // footer.viewWithTag(2)?.frame.size.width = Fila.LargoMax! // hace el renglon(lo que es visible) del ancho adecuado
             if(indexPath.section == (collectionView.numberOfSections - 1)){
                 footer.viewWithTag(2)?.isHidden = true
             }

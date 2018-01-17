@@ -43,7 +43,7 @@ class OpcionTableCell: UITableViewCell {
     
     func marcar(bien : Bool) {
        // UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
-            let colorNuevo = (bien) ? #colorLiteral(red: 0.1906670928, green: 0.9801233411, blue: 0.474581778, alpha: 1) : #colorLiteral(red: 1, green: 0.3005838394, blue: 0.2565174997, alpha: 1)
+            let colorNuevo = (bien) ?  #colorLiteral(red: 0.1906670928, green: 0.9801233411, blue: 0.474581778, alpha: 1) : #colorLiteral(red: 1, green: 0.3005838394, blue: 0.2565174997, alpha: 1)
             self.etiqueta.layer.borderColor = colorNuevo.cgColor
             self.etiqueta.layer.backgroundColor = colorNuevo.cgColor
             self.etiqueta.textColor = UIColor.white
@@ -77,13 +77,6 @@ class OpcionTableCell: UITableViewCell {
         }, completion: {(finalizo: Bool) in
                 fin
         })
-//        UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
-//            self.etiqueta.transform = CGAffineTransform.init(scaleX: 1.1, y: 0.98)
-//        }, completion: { _ in
-//            UIView.animate(withDuration: 0.1, animations: {
-//                self.etiqueta.transform = CGAffineTransform.init(scaleX: 1, y: 1)
-//            })
-//        })
     }
     
 }

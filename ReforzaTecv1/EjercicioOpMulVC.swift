@@ -43,14 +43,14 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
        
-        // si se cambian de lugar, primero la tabla y luego el textview desaparece ese misterioso espacio
+        
         botonSigOculto = true
         BotonSiguiente.layer.cornerRadius = 20
         BotonSiguiente.layer.borderColor = color.cgColor
         BotonSiguiente.layer.borderWidth = 1.5
         BotonSiguiente.setTitleColor(UIColor.black, for: .normal)
         //BotonSiguiente.frame.origin.y = self.view.bounds.size.height
-        BotonSiguiente.alpha = 0
+        BotonSiguiente.alpha = 0.5
         
     }
     
@@ -68,27 +68,50 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
         
         opcionesDeRespuesta = arreglo
-        
-        if (color) == nil {
-            print("color nil")
-            color = UIColor.purple
-        }
         opcionesDeRespuesta = opcionesDeRespuesta.shuffled()
-        //Para que el textview tome la altura necesaria para mostrar su contenido sin hacer scroll
         
+        //Para que el textview tome la altura necesaria para mostrar su contenido sin hacer scroll
         preguntaTextView.sizeToFit()
         AlturaTablaConstraint.constant = CGFloat(80 * tableView.numberOfRows(inSection: 0))
-        EspacioPreguntaTablaCotnstraint.constant = CGFloat(self.view.frame.size.height / 10)
-        // para pantallas largas
-        if self.view.bounds.size.height > 600{
-            let espacioLibre = self.view.frame.size.height - AlturaTablaConstraint.constant
-            EspacioBotonTablaConstraint.constant = espacioLibre / 3
-        }
+        EspacioPreguntaTablaCotnstraint.constant = CGFloat(self.view.frame.size.height / 12)
         
-        Fondo = CGPoint(x:0, y: BotonSiguiente.frame.origin.y + BotonSiguiente.frame.size.height  * 2)
+        
+        // calcular el espacio entre la tabla y el boton
+        var espacioLibre = self.view.frame.size.height
+        espacioLibre -= (preguntaTextView.frame.origin.y + preguntaTextView.frame.size.height + EspacioPreguntaTablaCotnstraint.constant + AlturaTablaConstraint.constant)
+        print("alto de la pantalla: \(self.view.frame.size.height)")
+        print("alto del boton")
+        print(BotonSiguiente.frame.size.height)
+        print("borde inferior de la tabla: \((preguntaTextView.frame.origin.y + preguntaTextView.frame.size.height + EspacioPreguntaTablaCotnstraint.constant + AlturaTablaConstraint.constant))")
+        print("espacio libre sin boton: \(espacioLibre)")
+        espacioLibre -= BotonSiguiente.frame.size.height
+        print("espacio libre con boton: \(espacioLibre)")
+        espacioLibre -= 20
+        print("alto de la tabla: \(AlturaTablaConstraint.constant)")
+        EspacioBotonTablaConstraint.constant = espacioLibre
+        /*
+        if(espacioLibre > 20){
+            EspacioBotonTablaConstraint.constant += espacioLibre
+            
+        }else {
+          EspacioBotonTablaConstraint.constant = 20
+        }*/
+        
+        //EspacioBotonTablaConstraint.constant = 20
+        
+        
+        
+        
+        
+        // calculando altura del view controller
+        var altura = CGFloat(0)
+        altura += preguntaTextView.frame.origin.y + preguntaTextView.frame.size.height + EspacioPreguntaTablaCotnstraint.constant + AlturaTablaConstraint.constant + EspacioBotonTablaConstraint.constant + BotonSiguiente.frame.size.height + 20
+        
+        Fondo = CGPoint(x:0, y: altura)
         AlturaVCConstraint.constant = Fondo.y
         configurarTabla()
     }
+   
 
     // MARK:- TableView
     
@@ -101,8 +124,6 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: OpcionTableCell.reuseId, for:indexPath) as! OpcionTableCell
-        
-        //aqui da nil
         cell.inicializar(titulo: opcionesDeRespuesta[indexPath.row], color: self.color)
         return cell
     }

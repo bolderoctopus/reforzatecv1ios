@@ -32,6 +32,7 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     @IBOutlet weak var AlturaVCConstraint: NSLayoutConstraint!
     @IBOutlet weak var EspacioPreguntaTablaCotnstraint: NSLayoutConstraint!
     @IBOutlet weak var EspacioBotonTablaConstraint: NSLayoutConstraint!
+    @IBOutlet weak var EspacioBottomBotonConstraint: NSLayoutConstraint!
     
     var Fondo: CGPoint!
     var color : UIColor!
@@ -42,15 +43,14 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-       
-        
         botonSigOculto = true
         BotonSiguiente.layer.cornerRadius = 20
         BotonSiguiente.layer.borderColor = color.cgColor
         BotonSiguiente.layer.borderWidth = 1.5
         BotonSiguiente.setTitleColor(UIColor.black, for: .normal)
-        //BotonSiguiente.frame.origin.y = self.view.bounds.size.height
-        BotonSiguiente.alpha = 0.5
+        
+        BotonSiguiente.alpha = 0
+        BotonSiguiente.isEnabled = false
         
     }
     
@@ -78,35 +78,23 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         
         // calcular el espacio entre la tabla y el boton
         var espacioLibre = self.view.frame.size.height
-        espacioLibre -= (preguntaTextView.frame.origin.y + preguntaTextView.frame.size.height + EspacioPreguntaTablaCotnstraint.constant + AlturaTablaConstraint.constant)
-        print("alto de la pantalla: \(self.view.frame.size.height)")
-        print("alto del boton")
-        print(BotonSiguiente.frame.size.height)
-        print("borde inferior de la tabla: \((preguntaTextView.frame.origin.y + preguntaTextView.frame.size.height + EspacioPreguntaTablaCotnstraint.constant + AlturaTablaConstraint.constant))")
-        print("espacio libre sin boton: \(espacioLibre)")
+        espacioLibre -= (self.navigationController!.navigationBar.frame.height + preguntaTextView.frame.origin.y + preguntaTextView.frame.size.height + EspacioPreguntaTablaCotnstraint.constant + AlturaTablaConstraint.constant)
+        
         espacioLibre -= BotonSiguiente.frame.size.height
-        print("espacio libre con boton: \(espacioLibre)")
         espacioLibre -= 20
-        print("alto de la tabla: \(AlturaTablaConstraint.constant)")
-        EspacioBotonTablaConstraint.constant = espacioLibre
-        /*
-        if(espacioLibre > 20){
-            EspacioBotonTablaConstraint.constant += espacioLibre
-            
-        }else {
-          EspacioBotonTablaConstraint.constant = 20
-        }*/
         
-        //EspacioBotonTablaConstraint.constant = 20
-        
-        
-        
-        
-        
-        // calculando altura del view controller
         var altura = CGFloat(0)
-        altura += preguntaTextView.frame.origin.y + preguntaTextView.frame.size.height + EspacioPreguntaTablaCotnstraint.constant + AlturaTablaConstraint.constant + EspacioBotonTablaConstraint.constant + BotonSiguiente.frame.size.height + 20
-        
+        if espacioLibre < 20 {
+            EspacioBotonTablaConstraint.constant = 20
+            EspacioBotonTablaConstraint.isActive = true
+            EspacioBottomBotonConstraint.isActive = false
+            altura += preguntaTextView.frame.origin.y + preguntaTextView.frame.size.height + EspacioPreguntaTablaCotnstraint.constant + AlturaTablaConstraint.constant + EspacioBotonTablaConstraint.constant + BotonSiguiente.frame.size.height + 20
+        }else {
+            altura = self.view.frame.size.height  - self.navigationController!.navigationBar.frame.size.height
+            - UIApplication.shared.statusBarFrame.height
+            EspacioBotonTablaConstraint.isActive = false
+            EspacioBottomBotonConstraint.isActive = true
+        }
         Fondo = CGPoint(x:0, y: altura)
         AlturaVCConstraint.constant = Fondo.y
         configurarTabla()
@@ -173,6 +161,7 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
     }
     @IBAction func MostrarSiguiente(_ sender: Any) {
+        
         if(contestoBien){
             //guardar acierto
             EjercicioActual.vecesAcertado += 1
@@ -231,7 +220,7 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             self.BotonSiguiente.alpha = 1
             self.botonSigOculto = false
         })
-        
+        BotonSiguiente.isEnabled = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

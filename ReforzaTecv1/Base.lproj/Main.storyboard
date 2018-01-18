@@ -202,7 +202,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bcb-Ev-vpJ" userLabel="opcionesTableV">
-                                                <rect key="frame" x="0.0" y="325" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="325" width="375" height="467"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" priority="250" constant="100" id="y16-5c-Gix"/>
@@ -213,7 +213,7 @@
                                                 </connections>
                                             </tableView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Og-t4-7hl">
-                                                <rect key="frame" x="5" y="470" width="365" height="60"/>
+                                                <rect key="frame" x="5" y="812" width="365" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="IO1-SY-ECL"/>
                                                 </constraints>
@@ -230,7 +230,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="u1v-VG-IEB" firstAttribute="width" secondItem="jeA-nQ-Sn8" secondAttribute="width" id="0M1-us-3ki"/>
-                                            <constraint firstItem="9Og-t4-7hl" firstAttribute="top" secondItem="bcb-Ev-vpJ" secondAttribute="bottom" constant="45" id="0Tq-Ef-xc5"/>
+                                            <constraint firstItem="9Og-t4-7hl" firstAttribute="top" secondItem="bcb-Ev-vpJ" secondAttribute="bottom" priority="999" constant="20" id="0Tq-Ef-xc5"/>
                                             <constraint firstItem="bcb-Ev-vpJ" firstAttribute="top" secondItem="u1v-VG-IEB" secondAttribute="bottom" constant="20" id="1Gk-Nt-aGJ"/>
                                             <constraint firstItem="9Og-t4-7hl" firstAttribute="leading" secondItem="jeA-nQ-Sn8" secondAttribute="leading" constant="5" id="4aZ-uM-PuY"/>
                                             <constraint firstAttribute="trailing" secondItem="9Og-t4-7hl" secondAttribute="trailing" constant="5" id="9QK-1w-Jhg"/>
@@ -253,6 +253,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="3OH-e5-BX9" firstAttribute="top" secondItem="9Og-t4-7hl" secondAttribute="bottom" priority="999" constant="20" id="IbQ-wE-Y3a"/>
                             <constraint firstItem="3OH-e5-BX9" firstAttribute="top" secondItem="5GH-NA-LyY" secondAttribute="bottom" id="JWI-C7-ycG"/>
                             <constraint firstItem="jeA-nQ-Sn8" firstAttribute="width" secondItem="ZWf-bD-eIX" secondAttribute="width" id="bGB-H7-0UY"/>
                             <constraint firstItem="5GH-NA-LyY" firstAttribute="top" secondItem="Wyk-Wj-gk8" secondAttribute="bottom" id="cZl-HQ-sXm"/>
@@ -269,6 +270,7 @@
                         <outlet property="AlturaVCConstraint" destination="NRT-Ch-9wJ" id="oJ1-Ue-MsL"/>
                         <outlet property="BotonSiguiente" destination="9Og-t4-7hl" id="gQI-KI-oCa"/>
                         <outlet property="EspacioBotonTablaConstraint" destination="0Tq-Ef-xc5" id="HD7-YJ-X85"/>
+                        <outlet property="EspacioBottomBotonConstraint" destination="IbQ-wE-Y3a" id="ntD-JD-AZd"/>
                         <outlet property="EspacioPreguntaTablaCotnstraint" destination="1Gk-Nt-aGJ" id="dAA-o0-ffY"/>
                         <outlet property="ScrollView" destination="5GH-NA-LyY" id="oBI-P6-ZYK"/>
                         <outlet property="preguntaTextView" destination="u1v-VG-IEB" id="kZU-xd-Gue"/>

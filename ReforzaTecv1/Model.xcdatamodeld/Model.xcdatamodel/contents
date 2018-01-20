@@ -9,6 +9,7 @@
         <relationship name="unidad" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Unidad" inverseName="ejercicios" inverseEntity="Unidad" syncable="YES"/>
     </entity>
     <entity name="Evaluacion" representedClassName="Evaluacion" syncable="YES" codeGenerationType="class">
+        <attribute name="idEv" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="pregunta" attributeType="String" syncable="YES"/>
         <attribute name="puntos" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="respuestas" attributeType="String" syncable="YES"/>
@@ -24,6 +25,7 @@
     <entity name="Unidad" representedClassName="Unidad" syncable="YES" codeGenerationType="class">
         <attribute name="descripcionUni" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ejemplo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idUni" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="nombreUni" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="teoria" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ejercicios" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ejercicio" inverseName="unidad" inverseEntity="Ejercicio" spotlightIndexingEnabled="YES" syncable="YES"/>
@@ -32,8 +34,8 @@
     </entity>
     <elements>
         <element name="Ejercicio" positionX="108" positionY="180" width="128" height="135"/>
-        <element name="Evaluacion" positionX="513" positionY="210" width="128" height="105"/>
+        <element name="Evaluacion" positionX="513" positionY="210" width="128" height="118"/>
         <element name="Materia" positionX="333" positionY="-36" width="128" height="120"/>
-        <element name="Unidad" positionX="331" positionY="138" width="128" height="150"/>
+        <element name="Unidad" positionX="331" positionY="138" width="128" height="163"/>
     </elements>
 </model>

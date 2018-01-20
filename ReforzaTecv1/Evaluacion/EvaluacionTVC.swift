@@ -23,6 +23,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
         var botones: [UIView]!
         var respuestaAbierta: String!
         var estado: estados!
+        var id: Int16
         enum tipos {
             case abierta
             case opcionM
@@ -33,7 +34,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
             case incorrecto
         }
         // y practicamente este es el constructor para cuando es de abierta
-        init(texto: String, respuesta: String, indice: Int) {
+        init(texto: String, respuesta: String, indice: Int, id: Int16) {
             self.indice = indice
             self.texto = texto
             self.tipo = .abierta
@@ -42,18 +43,22 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
             self.opciones = nil
             self.botones = nil
             self.estado = .sinCalificar
+            self.id = id
         }
         // practicmente este es el constructor para cuando es de opcionM
-        init(texto: String, respuesta: String, opciones: [String], ancho: CGFloat, color: UIColor, indice: Int) {
+        init(texto: String, respuesta: String, opciones: [String], ancho: CGFloat, color: UIColor, indice: Int, id: Int16) {
             self.indice = indice
             self.texto = texto
             self.tipo = .opcionM
             self.respuestaCorrecta = respuesta
             self.opciones = opciones
+            self.id = id
             var todas = opciones
             todas.append(respuesta)
+            
             self.botones = arregloDeBotones(con: todas, ancho: ancho, color: color)
             self.estado = .sinCalificar
+            
         }
         
         func arregloDeBotones(con strings: [String], ancho: CGFloat, color: UIColor)-> [UIView] {
@@ -220,7 +225,8 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
             if(arreglo.count == 1){
                 var rCorrecta = arreglo.first!
                 rCorrecta.remove(at: rCorrecta.startIndex)
-                dataSource.append(PreguntaStruct(texto: p.pregunta!, respuesta: rCorrecta, indice: indice))
+                dataSource.append(PreguntaStruct(texto: p.pregunta!, respuesta: rCorrecta, indice: indice, id: p.idEv))
+                
             }else{
                 var rCorrecta = ""
                 for i in 0...(arreglo.count - 1){
@@ -230,7 +236,8 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
                     }
                 }
                 rCorrecta.remove(at: rCorrecta.startIndex)
-                dataSource.append(PreguntaStruct(texto: p.pregunta!, respuesta: rCorrecta, opciones: arreglo, ancho: tableView.frame.width, color: color, indice: indice))
+                dataSource.append(PreguntaStruct(texto: p.pregunta!, respuesta: rCorrecta, opciones: arreglo, ancho: tableView.frame.width, color: color, indice: indice, id: p.idEv))
+                //dataSource.append(PreguntaStruct(texto: p.pregunta!, respuesta: rCorrecta, opciones: arreglo, ancho: tableView.frame.width, color: color, indice: Int(p.idEv)))
             }
             indice += 1
         }
@@ -266,19 +273,58 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
     func contarAciertos() {
         var aciertos = 0
         var fallos = 0
-        
+        var resultados: [String: String] = [:]
         for i in 0...(dataSource.count - 1){
+            var id: String = String(dataSource[i].id)
+            var r: String
             if (dataSource[i].esCorrecto()){
                 aciertos += 1
+                r = "1"
             }else {
                 fallos += 1
+                r = "0"
             }
+            
+            resultados[id] = r
         }
         
+        subirCalificaciones(resultados)
         
         AciertosL.text?.append(" \(aciertos)")
         ErroresL.text?.append(" \(fallos)")
         tableView.reloadData()
+    }
+    
+    func subirCalificaciones(_ resultados: [String: String]) {
+        do{
+            let json = try JSONSerialization.data(withJSONObject: resultados, options: [] )
+            //print(String(data:json, encoding: .utf8)!)
+            let url = URL (string: (MateriaObj.CALIFICACIONES + String(PreguntasEvaluacion.first!.unidad!.idUni)) )!
+            var request = URLRequest(url: url)
+            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            request.httpBody = ("resultados=" + String(data:json, encoding: .utf8)!).data(using: .utf8)!
+            request.httpMethod = "POST"
+            let task = URLSession.shared.dataTask(with: request){data, response, error in
+                guard  error == nil else{
+                    print("error: \(error!)")
+                    return
+                }
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200{
+                    print("response: \(response!)")
+                }
+                
+                if let responseString = String(data: data!, encoding: .utf8){
+                    print("respuesta: \(responseString)")
+                }
+                
+            }
+            task.resume()
+        }catch {
+            print("No fue posible enviar al servidor.")
+        }
+            
+        // poner parametros
+        
     }
     
 }

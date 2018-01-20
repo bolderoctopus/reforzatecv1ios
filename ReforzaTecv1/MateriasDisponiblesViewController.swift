@@ -189,6 +189,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
                 coreDataMateria.idMateria = Int32(objMateria.id)
                 coreDataMateria.nombre = objMateria.mNombre
                 coreDataMateria.descripcion = objMateria.mDescripcion
+                
 
                 let arregloRaiz = try? JSONSerialization.jsonObject(with: data!, options: [])
                 if let unidadesJson = arregloRaiz as? [Any]{
@@ -196,6 +197,10 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
                         if let unidad = unidadJson as? [String: Any]{
                             let coreDataUnidad = Unidad(context: self.context)
                             
+                            if let id = unidad["id"] as? String{
+                                coreDataUnidad.idUni = Int16(id)!
+                            }
+                          
                             if let nombre = unidad["nombre"] as? String{
 //                                print("nombre: \(nombre)")
                                 coreDataUnidad.nombreUni = nombre
@@ -242,17 +247,21 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
                                 for evaluacionJson in evaluacionesJson{
                                     if let evaluacion = evaluacionJson as? [String: Any]{
                                         let coreDataEvaluacion = Evaluacion(context: self.context)
+                                        
+                                        if let idEv = evaluacion["idEvaluaciones"] as? String{
+                                            coreDataEvaluacion.idEv = Int16(idEv)!
+                                        }
 
                                         if let texto = evaluacion["textos"] as? String{
-                                            print("texto \(texto)")
+                                            //print("texto \(texto)")
                                             coreDataEvaluacion.pregunta = texto
                                         }
                                         if let respuesta = evaluacion["respuestas"] as? 	String {
-                                            print("respuesta \(respuesta)")
+                                            //print("respuesta \(respuesta)")
                                             coreDataEvaluacion.respuestas = respuesta
                                         }
                                         if let puntaje = evaluacion["puntos"] as? Int16 {
-                                            print("puntaje \(puntaje)")
+                                            //print("puntaje \(puntaje)")
                                             coreDataEvaluacion.puntos = puntaje
                                         }
                                         coreDataUnidad.addToEvaluaciones(coreDataEvaluacion)

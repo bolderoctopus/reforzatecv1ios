@@ -181,11 +181,18 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func preguntarComentarios() {
-        print("enviando comentarios al servidor")
+        
         let comentariosAlert = UIAlertController(title: "¿Qué piensas de la aplicación?", message: nil, preferredStyle: .alert)
         comentariosAlert.addAction(UIAlertAction(title: "Enviar", style: .default, handler: {(resultado: UIAlertAction) -> Void in
             if let comentario = comentariosAlert.textFields?.first!.text{
                 print("Enviando: \(comentario)")
+                let comentarioCodificado = comentario.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                let url = URL(string: MateriaObj.COMENTARIOS + comentarioCodificado!)
+                print(url!.absoluteString)
+                let session = URLSession.shared
+                let task = session.dataTask(with: url!)
+                task.resume()
+                
             }
         }
         ))

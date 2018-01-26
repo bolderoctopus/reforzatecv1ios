@@ -86,13 +86,9 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         controlActualizar.tintColor = UIColor.orange
         tableView.addSubview(controlActualizar)
         // le pone un mensaje a mostrar si esta vacia
-        let etiqueta = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-        etiqueta.textColor = UIColor.red
-        etiqueta.textAlignment = NSTextAlignment.center
-        etiqueta.numberOfLines = 3
-        etiqueta.text = "No se pudo conectar con el servidor.\n😥\nDesliza hacia abajo para actualizar."
+        let emptyView = (UINib(nibName: "MateriasDisponiblesEmptyView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView)
         tableView.separatorStyle  = UITableViewCellSeparatorStyle.none
-        tableView.backgroundView = etiqueta
+        tableView.backgroundView = emptyView
         tableView.backgroundView?.isHidden = true
     }
     

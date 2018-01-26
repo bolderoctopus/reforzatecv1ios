@@ -29,9 +29,8 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         
         // hacer un struct y no pasar referencia de core data a la celda?
         recuperarData()
-
         tableView.reloadData()
-
+        mostrarEmptyView()
     }
     
 
@@ -134,7 +133,18 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     
     //MARK:- Cosas extra
 
-
+    func mostrarEmptyView() {
+        if materiasDescargadas.isEmpty{
+            let emptyView = (UINib(nibName: "MisMateriasEmptyView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView)
+            emptyView.isHidden = false
+            tableView.backgroundView = emptyView
+        }else {
+            if let v = tableView.backgroundView{
+                v.isHidden = true
+            }
+        }
+    }
+    
     func expandirCelda(numero : Int) {
         self.tableView.beginUpdates()
         let previousCellTag = tagCeldaExpandida
@@ -206,9 +216,18 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.present(comentariosAlert, animated: true, completion: nil)
     }
-    
     func mostrarCreditos() {
-        let creditosAlert = UIAlertController(title: "Mostrar licencias", message: "por enlistar terceros", preferredStyle: .alert)
+        var mensaje = String()
+        mensaje.append("\n\u{2022}Íconos diseñados por: ")
+        mensaje.append("Freepik, SmashIcons, Iconnice\n")
+        mensaje.append("de ")
+        mensaje.append("www.flaticon.com \n\n")
+        mensaje.append("\u{2022}DLRadioButton ")
+        mensaje.append(" por: ")
+        mensaje.append("DavydLiu\n\n\n")
+        mensaje.append("Instituto Tecnológico Superior de Uruapan")
+        
+        let creditosAlert = UIAlertController(title: "", message: mensaje, preferredStyle: .alert)
         creditosAlert.addAction(UIAlertAction(title: "Ocultar", style: .default, handler: nil))
         self.present(creditosAlert, animated: true, completion: nil)
     }
@@ -245,6 +264,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
             
             self.context.delete(coreData)
             (UIApplication.shared.delegate as! AppDelegate).saveContext()
+            self.mostrarEmptyView()
             //self.lastCell = nil
         }))
         alerta.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: {_ in

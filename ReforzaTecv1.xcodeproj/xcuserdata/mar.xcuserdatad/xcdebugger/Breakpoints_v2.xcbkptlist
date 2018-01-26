@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReforzaTecv1/MateriasDisponiblesViewController.swift"
-            timestampString = "538603553.963575"
+            timestampString = "538702382.550352"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "descargarArchivos(archivos:celdaPorQuitar:)"
             landmarkType = "7">
          </BreakpointContent>

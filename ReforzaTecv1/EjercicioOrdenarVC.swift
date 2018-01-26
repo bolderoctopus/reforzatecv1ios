@@ -7,9 +7,7 @@
 //
 
 import UIKit
-// TODO:- Bugs
-//      1. Prevenir que palabras cortas puedan irse a filas que ya estan marcadas como llenas
-//      2. Puede que mas de una palabra pueda recorrerse al hacer espacio en una fila
+
 
 class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -35,9 +33,6 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
             if(contiene == "opciones"){
                 return true
             }else {// respuestas
-                print("largo maximo de la fila: \(Fila.LargoMax!)")
-                print("largo actual de la fila: \(largo)")
-                print("largo de la etiqueta a agregar: \(label.frame.size.width)" )
                 return Fila.LargoMax! > (largo + label.frame.size.width)
             }
         }
@@ -50,8 +45,12 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBOutlet weak var AlturaDeImagenConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var EspacioBotonFondoCosntraint: NSLayoutConstraint!
     @IBOutlet weak var AlturaViewControllerConstraint: NSLayoutConstraint!
     @IBOutlet weak var AlturaCollectionViewConstraint: NSLayoutConstraint!
+
+    @IBOutlet weak var EspacioBotonCollectionConstraint: NSLayoutConstraint!
+    @IBOutlet weak var EspacioCollectionImagenConstraint: NSLayoutConstraint!
     var Ejercicios: [Ejercicio]!
     var EjercicioActual: Ejercicio!    
     var IndiceSeccionDeOpciones: Int!
@@ -63,22 +62,21 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     var AltoDeEtiqueta: CGFloat!
     
     var color : UIColor!// = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
-    
+    var yaFueRevisado = false
     var RespuestaCorrecta: String!
     var relleno: String = ""
     var dataSource: [Fila] = []
     
     let EspacioEntreRenglones = CGFloat(15)
-    let EspacioEntreSecciones = CGFloat(60)
-    
+    let EspacioEntreSecciones = CGFloat(50)
+    let AlturaImagen = CGFloat(65)
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         AltoDeEtiqueta = nuevaLabel().frame.size.height
-        //print("collectionView.frame.size.width: \(collectionView.frame.size.width)")
-        // movio a view did layout subs
+        // calculando el ancho de los renglones del collectionview
         let anchoPantalla = self.view.frame.size.width
         let margenesYConstraints = CGFloat( (2 * 10) + (2 * 10))
         Fila.LargoMax = anchoPantalla - margenesYConstraints
@@ -116,27 +114,42 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         dataSource.append(seccionDeOpciones)
         IndiceSeccionDeOpciones = dataSource.count - 1
         
-        // calculando altura de las cosas
-        preguntaTextView.sizeToFit()
-        
-        AlturaCollectionViewConstraint.constant = ((AltoDeEtiqueta.magnitude + EspacioEntreRenglones) * CGFloat(dataSource.count)) + EspacioEntreSecciones + 60
-        
         // ocultando la imagen
         AlturaDeImagenConstraint.constant = 0
         CalificacionImageView.alpha = 0
-        //print(AlturaViewControllerConstraint.constant)
-        AlturaViewControllerConstraint.constant =  BotonRevisar.frame.origin.y + BotonRevisar.frame.size.height  * 2
-        //print(AlturaViewControllerConstraint.constant)
-        //print(self.view.frame.size.height)
         
+        
+        // calculando altura de las cosas
+        preguntaTextView.sizeToFit()
+        AlturaCollectionViewConstraint.constant = ((AltoDeEtiqueta.magnitude  /*+ EspacioEntreRenglones*/ ) * CGFloat(dataSource.count)) * 2
+        AlturaCollectionViewConstraint.constant += EspacioEntreSecciones / 2
+        
+        var alturaRequerida = CGFloat(0)
+        // espacio disponible cambiar nombre a
+        let alturaPantalla = self.view.frame.size.height - self.navigationController!.navigationBar.frame.height - UIApplication.shared.statusBarFrame.height
+        // el 60 viene del espacio vertical entre las constraints del textview y el collectionview en el IB
+        
+        alturaRequerida = 60 + preguntaTextView.frame.size.height +  AlturaCollectionViewConstraint.constant
+        alturaRequerida += EspacioBotonCollectionConstraint.constant
+        alturaRequerida += BotonRevisar.frame.size.height
+        
+        // si la altura minima requerida es menor que la altura de la pantalla
+        if(alturaRequerida <= alturaPantalla){
+            AlturaViewControllerConstraint.constant = alturaPantalla
+            // mantener el boton sobre la guia del fondo
+            EspacioBotonFondoCosntraint.isActive = true
+            EspacioBotonCollectionConstraint.isActive = false
+        }else {
+            AlturaViewControllerConstraint.constant = alturaRequerida + 60
+            EspacioBotonFondoCosntraint.isActive = false
+            EspacioBotonCollectionConstraint.isActive = true
+            // la altura calculada permanece como altura de la pantalla
+            //el boton se pega bajo el collection view o la imageview
+        }        
+
         // iniciando boton
-        BotonRevisar.backgroundColor = UIColor.white
-        BotonRevisar.addTarget(self, action: #selector(accionDelBoton), for: .touchDown)
-        BotonRevisar.layer.cornerRadius = 10
-        BotonRevisar.layer.borderWidth = 1.5
-        BotonRevisar.layer.borderColor = color.cgColor
-        BotonRevisar.setTitleColor( #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1), for: .disabled)
-        collectionView.sizeToFit()
+        iniciarBoton()
+        
     }
     
    
@@ -173,8 +186,18 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
             }
         }
     }
+    func iniciarBoton(){
+        BotonRevisar.backgroundColor = UIColor.white
+        BotonRevisar.addTarget(self, action: #selector(accionDelBoton), for: .touchDown)
+        BotonRevisar.layer.cornerRadius = 10
+        BotonRevisar.layer.borderWidth = 1.5
+        BotonRevisar.layer.borderColor = color.cgColor
+        BotonRevisar.setTitleColor( #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1), for: .disabled)
+    }
     
     func revisar() {
+        yaFueRevisado = true
+        collectionView.isUserInteractionEnabled = false
         var respuestaDelUsuario: String = ""
         for fila in dataSource{
             if(fila.contiene == "opciones"){
@@ -185,22 +208,29 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
                 respuestaDelUsuario.append(" ")
             }
         }
-        respuestaDelUsuario.remove(at: respuestaDelUsuario.index(before: respuestaDelUsuario.endIndex))
-        print(respuestaDelUsuario)
+        if !respuestaDelUsuario.isEmpty{
+            // removiendo el ultimo espacio del ciclo
+            respuestaDelUsuario.remove(at: respuestaDelUsuario.index(before: respuestaDelUsuario.endIndex))
+        }
         BotonRevisar.setTitle("Siguiente", for: .normal)
 
         if(RespuestaCorrecta == respuestaDelUsuario){
             CalificacionImageView.image = #imageLiteral(resourceName: "correcto")
             EjercicioActual.vecesAcertado += 1
         }else {
-//            print("fallaste!")
             CalificacionImageView.image = #imageLiteral(resourceName: "equivocado")
             EjercicioActual.vecesFallado += 1
             mostrarRespuesta()
         }
+        AlturaCollectionViewConstraint.constant /= 2
+        AlturaViewControllerConstraint.constant += AlturaImagen
         UIView.animate(withDuration: 0.3, animations: {
-            self.AlturaDeImagenConstraint.constant = 64
+            self.AlturaDeImagenConstraint.constant = self.AlturaImagen
             self.CalificacionImageView.alpha = 1
+            if let _ = self.EspacioBotonCollectionConstraint{
+                self.EspacioBotonCollectionConstraint.constant += self.AlturaImagen * 2.5
+            }
+            
         })
         print("Veces acertado: \(EjercicioActual.vecesAcertado)")
         print("Veces fallado: \(EjercicioActual.vecesFallado)")
@@ -339,7 +369,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if(section == (collectionView.numberOfSections - 2)){
+        if(section == (collectionView.numberOfSections - 2) ) &&  !yaFueRevisado{
             // espacio entre la secion de respuestas y la de opcionnes
             return CGSize.init(width: Fila.LargoMax!, height: EspacioEntreSecciones)
         }
@@ -418,8 +448,12 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
                 
             }
             self.collectionView.insertItems(at: palabrasPorInsertarIndices)
-            
-        
+            // borrar seccion de opciones
+            var set = IndexSet()
+            set.insert(IndexSet.Element(self.IndiceSeccionDeOpciones))
+            self.collectionView.deleteSections(set)
+            self.dataSource.remove(at: self.IndiceSeccionDeOpciones)
+            self.collectionView.sizeToFit()
         
         }, completion: nil)
     }

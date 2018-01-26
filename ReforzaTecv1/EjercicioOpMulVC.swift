@@ -8,18 +8,10 @@
 
 import UIKit
 
-//Por hacer la proxima vez:
-//[] Llegar a un acuerdo sobre como mostrar el texto de la pregunta, habia unos bugs sobre la altura y al corregirlo salia 
-//      otro bug con la alineacion
-//      estaba pensando en dejar una altura fija (mejor dicho aspect ratio) para mostrar el texto, en caso de ser muy largo, pues si 
-//      scroll pero el borde del textview deberia mostrar un blur en lugar de cortar el texto asi nada mas
-//      y centrar el texto en ese espacio designado,lo mismo pensaba con las opciones de respuesta 
-
 class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let RetrasoDeSegue: Int = 2
-//para no estar descomentando cosas y probar rapido con breakpoints
-    var debugVar = false
+    
     var Ejercicios: [Ejercicio]!
     var EjercicioActual: Ejercicio!
    

@@ -68,7 +68,7 @@ class EjercicioEscrituraVC: UIViewController {
         UIView.animate(withDuration: 0.5, animations: {
             self.AlturaDeImagenConstraint.constant = 64
             self.CalificacionImagenView.alpha = 1
-            self.BotonRevisar.setTitle("Siguiente", for: .normal)
+            self.BotonRevisar.setTitle(NSLocalizedString("Next", comment: ""), for: .normal)
         })
         
     }

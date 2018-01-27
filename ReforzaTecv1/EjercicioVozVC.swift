@@ -27,11 +27,12 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
     private var tareaDeReconocimiento: SFSpeechRecognitionTask?
     private let motorDeAudio = AVAudioEngine()
     
-    private var RespuestaCorrecta:String = "900"
+    private var RespuestaCorrecta:String!
     
     var color: UIColor! = UIColor.cyan
     var Ejercicios: [Ejercicio]!
     var EjercicioActual: Ejercicio!
+    var yaFueRevisado = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,19 +88,17 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
                 self.BotonMicrofono.isEnabled = habilitarBoton
             }
         })
-        
+        let ejercicioString = NSLocalizedString("Exercise", comment: "")
+        let numero = " \(5 - Ejercicios.count)/5"
+        self.title = ejercicioString + numero
         
     }
     
     @objc func accionDelBotonRevisar(sender: UIButton) {
-        let titulo = sender.title(for: .normal)!
-        switch titulo {
-        case "Revisar":
-            mostrarCalificacion()
-        case "Siguiente":
+        if yaFueRevisado{
             siguienteEjercicio()
-        default:
-            print("Wow titulo desconocido: \(titulo)")
+        } else {
+            mostrarCalificacion()
         }
     }
   
@@ -125,7 +124,8 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
         }
         BotonMicrofono.isEnabled = false
         BotonRevisar.isEnabled = true
-        self.BotonRevisar.setTitle("Siguiente", for: .normal)
+        self.BotonRevisar.setTitle(NSLocalizedString("Next", comment: ""), for: .normal)
+        yaFueRevisado = true
     }
     
     
@@ -148,7 +148,8 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
         UIView.animate(withDuration: 0.5, animations: {
             self.AlturaDeImagenConstraint.constant = 64
             self.CalificacionImagenView.alpha = 1
-            self.BotonRevisar.setTitle("Siguiente", for: .normal)
+            self.BotonRevisar.setTitle(NSLocalizedString("Next", comment: ""), for: .normal)
+            self.yaFueRevisado = true
         })
     }
     
@@ -207,7 +208,6 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
             print("Error al ponerle las propiedades a la sesion de audio")
         }
         solicitudDeReconocimiento = SFSpeechAudioBufferRecognitionRequest()
-        // TODO: revisar esto para que sea mas safe
         let nodoEntrada = motorDeAudio.inputNode
 //        guard let inputNode = motorDeAudio.inputNode else {
 //            fatalError("Audio engine has no input node")

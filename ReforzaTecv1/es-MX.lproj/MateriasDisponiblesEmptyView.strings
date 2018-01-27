@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "Puedes deslizar hacia abajo para recargar la lista"; ObjectID = "UTw-Jf-SiU"; */
+"UTw-Jf-SiU.text" = "Puedes deslizar hacia abajo para recargar la lista";
+
+/* Class = "UILabel"; text = "No es posible descargar la lista de materias, intenta más tarde."; ObjectID = "ugB-up-rYf"; */
+"ugB-up-rYf.text" = "No es posible descargar la lista de materias, intenta más tarde.";
+
+/* Class = "UILabel"; text = ":("; ObjectID = "vmS-h1-aWF"; */
+"vmS-h1-aWF.text" = ":(";

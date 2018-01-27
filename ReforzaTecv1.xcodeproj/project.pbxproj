@@ -22,10 +22,11 @@
 		48D73E621FBECC3D006D5EEE /* OpcionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D73E611FBECC3D006D5EEE /* OpcionTableCell.swift */; };
 		48D73E641FBECC56006D5EEE /* OpcionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48D73E631FBECC56006D5EEE /* OpcionTableCell.xib */; };
 		48D73E661FBECCD3006D5EEE /* Extensiones.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D73E651FBECCD3006D5EEE /* Extensiones.swift */; };
-		48D8591F201BB96D00D556D2 /* MisMateriasEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48D8591E201BB96D00D556D2 /* MisMateriasEmptyView.xib */; };
-		48D85921201BE8B400D556D2 /* MateriasDisponiblesEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48D85920201BE8B400D556D2 /* MateriasDisponiblesEmptyView.xib */; };
+		48D85926201BF7F900D556D2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48D85924201BF7F900D556D2 /* Localizable.strings */; };
+		48D8592A201C254700D556D2 /* MateriasDisponiblesEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48D8592C201C254700D556D2 /* MateriasDisponiblesEmptyView.xib */; };
+		48D8592F201C255D00D556D2 /* MisMateriasEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48D85931201C255D00D556D2 /* MisMateriasEmptyView.xib */; };
+		48D85934201C513F00D556D2 /* PreguntaATVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48D85936201C513F00D556D2 /* PreguntaATVC.xib */; };
 		48EF394A1FB99666000325AB /* PreguntaATVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EF39481FB99666000325AB /* PreguntaATVC.swift */; };
-		48EF394B1FB99666000325AB /* PreguntaATVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48EF39491FB99666000325AB /* PreguntaATVC.xib */; };
 		48EF394E1FB9979D000325AB /* PreguntaOMTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EF394C1FB9979D000325AB /* PreguntaOMTVC.swift */; };
 		48EF394F1FB9979D000325AB /* PreguntaOMTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48EF394D1FB9979D000325AB /* PreguntaOMTVC.xib */; };
 		48EF39511FB99F23000325AB /* EvaluacionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EF39501FB99F23000325AB /* EvaluacionTVC.swift */; };
@@ -62,10 +63,17 @@
 		48D73E611FBECC3D006D5EEE /* OpcionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpcionTableCell.swift; sourceTree = "<group>"; };
 		48D73E631FBECC56006D5EEE /* OpcionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpcionTableCell.xib; sourceTree = "<group>"; };
 		48D73E651FBECCD3006D5EEE /* Extensiones.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensiones.swift; sourceTree = "<group>"; };
-		48D8591E201BB96D00D556D2 /* MisMateriasEmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MisMateriasEmptyView.xib; sourceTree = "<group>"; };
-		48D85920201BE8B400D556D2 /* MateriasDisponiblesEmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MateriasDisponiblesEmptyView.xib; sourceTree = "<group>"; };
+		48D85922201BF77800D556D2 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		48D85923201BF77800D556D2 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/Main.strings"; sourceTree = "<group>"; };
+		48D85925201BF7F900D556D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		48D85929201BF87000D556D2 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		48D8592B201C254700D556D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MateriasDisponiblesEmptyView.xib; sourceTree = "<group>"; };
+		48D8592E201C255100D556D2 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/MateriasDisponiblesEmptyView.strings"; sourceTree = "<group>"; };
+		48D85930201C255D00D556D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MisMateriasEmptyView.xib; sourceTree = "<group>"; };
+		48D85933201C256500D556D2 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/MisMateriasEmptyView.strings"; sourceTree = "<group>"; };
+		48D85935201C513F00D556D2 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "es-MX"; path = "es-MX.lproj/PreguntaATVC.xib"; sourceTree = "<group>"; };
+		48D85937201C514C00D556D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreguntaATVC.xib; sourceTree = "<group>"; };
 		48EF39481FB99666000325AB /* PreguntaATVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreguntaATVC.swift; sourceTree = "<group>"; };
-		48EF39491FB99666000325AB /* PreguntaATVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreguntaATVC.xib; sourceTree = "<group>"; };
 		48EF394C1FB9979D000325AB /* PreguntaOMTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreguntaOMTVC.swift; sourceTree = "<group>"; };
 		48EF394D1FB9979D000325AB /* PreguntaOMTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreguntaOMTVC.xib; sourceTree = "<group>"; };
 		48EF39501FB99F23000325AB /* EvaluacionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluacionTVC.swift; sourceTree = "<group>"; };
@@ -102,7 +110,7 @@
 			children = (
 				48EF39501FB99F23000325AB /* EvaluacionTVC.swift */,
 				48EF39481FB99666000325AB /* PreguntaATVC.swift */,
-				48EF39491FB99666000325AB /* PreguntaATVC.xib */,
+				48D85936201C513F00D556D2 /* PreguntaATVC.xib */,
 				48557FDC1FBED3BF00CD1A2B /* DLRadioButton.h */,
 				48557FDD1FBED3BF00CD1A2B /* DLRadioButton.m */,
 				48EF394C1FB9979D000325AB /* PreguntaOMTVC.swift */,
@@ -110,6 +118,13 @@
 				48557FDB1FBED3BE00CD1A2B /* ReforzaTecv1-Bridging-Header.h */,
 			);
 			path = Evaluacion;
+			sourceTree = "<group>";
+		};
+		48D85938201C538300D556D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		48E367C81F342E5300E3379A /* Ejercicios */ = {
@@ -142,6 +157,7 @@
 			children = (
 				48F5BDD21F1C917700242E95 /* Products */,
 				48F5BDD31F1C917700242E95 /* ReforzaTecv1 */,
+				48D85938201C538300D556D2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -160,6 +176,7 @@
 				48F5BDD41F1C917700242E95 /* AppDelegate.swift */,
 				4868E7061F70D0FE00135BEE /* Model.xcdatamodeld */,
 				48F5BDDB1F1C917700242E95 /* Assets.xcassets */,
+				48D85924201BF7F900D556D2 /* Localizable.strings */,
 				48F5BDE61F1CAE9000242E95 /* CustomTableViewCell.swift */,
 				48F5BDE71F1CAE9000242E95 /* CustomTableViewCell.xib */,
 				480DEA3E1FF4C5B300939AE1 /* Downloader.swift */,
@@ -174,8 +191,8 @@
 				48F5BDF51F1D684300242E95 /* MateriaObj.swift */,
 				48F5BDF31F1D583700242E95 /* MateriasDisponiblesViewController.swift */,
 				48F5BDD61F1C917700242E95 /* MisMateriasViewController.swift */,
-				48D85920201BE8B400D556D2 /* MateriasDisponiblesEmptyView.xib */,
-				48D8591E201BB96D00D556D2 /* MisMateriasEmptyView.xib */,
+				48D8592C201C254700D556D2 /* MateriasDisponiblesEmptyView.xib */,
+				48D85931201C255D00D556D2 /* MisMateriasEmptyView.xib */,
 				B77A801B1F29164200B73C43 /* UnidadStruct.swift */,
 				48F5BDEF1F1CB1A500242E95 /* Utils.swift */,
 			);
@@ -214,8 +231,14 @@
 				TargetAttributes = {
 					48F5BDD01F1C917700242E95 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 35EJ4JQ7H9;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -226,6 +249,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"es-MX",
 			);
 			mainGroup = 48F5BDC81F1C917700242E95;
 			productRefGroup = 48F5BDD21F1C917700242E95 /* Products */;
@@ -244,11 +268,12 @@
 			files = (
 				48F5BDDF1F1C917700242E95 /* LaunchScreen.storyboard in Resources */,
 				48F5BDDC1F1C917700242E95 /* Assets.xcassets in Resources */,
+				48D85926201BF7F900D556D2 /* Localizable.strings in Resources */,
 				48EF394F1FB9979D000325AB /* PreguntaOMTVC.xib in Resources */,
-				48D8591F201BB96D00D556D2 /* MisMateriasEmptyView.xib in Resources */,
-				48D85921201BE8B400D556D2 /* MateriasDisponiblesEmptyView.xib in Resources */,
+				48D8592F201C255D00D556D2 /* MisMateriasEmptyView.xib in Resources */,
+				48D8592A201C254700D556D2 /* MateriasDisponiblesEmptyView.xib in Resources */,
 				4853D85F1F23114A008FA029 /* CustomTableViewCell2.xib in Resources */,
-				48EF394B1FB99666000325AB /* PreguntaATVC.xib in Resources */,
+				48D85934201C513F00D556D2 /* PreguntaATVC.xib in Resources */,
 				48D73E641FBECC56006D5EEE /* OpcionTableCell.xib in Resources */,
 				48F5BDE91F1CAE9000242E95 /* CustomTableViewCell.xib in Resources */,
 				48F5BDDA1F1C917700242E95 /* Main.storyboard in Resources */,
@@ -293,10 +318,47 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		48D85924201BF7F900D556D2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				48D85925201BF7F900D556D2 /* Base */,
+				48D85929201BF87000D556D2 /* es-MX */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		48D8592C201C254700D556D2 /* MateriasDisponiblesEmptyView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				48D8592B201C254700D556D2 /* Base */,
+				48D8592E201C255100D556D2 /* es-MX */,
+			);
+			name = MateriasDisponiblesEmptyView.xib;
+			sourceTree = "<group>";
+		};
+		48D85931201C255D00D556D2 /* MisMateriasEmptyView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				48D85930201C255D00D556D2 /* Base */,
+				48D85933201C256500D556D2 /* es-MX */,
+			);
+			name = MisMateriasEmptyView.xib;
+			sourceTree = "<group>";
+		};
+		48D85936201C513F00D556D2 /* PreguntaATVC.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				48D85935201C513F00D556D2 /* es-MX */,
+				48D85937201C514C00D556D2 /* Base */,
+			);
+			name = PreguntaATVC.xib;
+			sourceTree = "<group>";
+		};
 		48F5BDD81F1C917700242E95 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				48F5BDD91F1C917700242E95 /* Base */,
+				48D85923201BF77800D556D2 /* es-MX */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -305,6 +367,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				48F5BDDE1F1C917700242E95 /* Base */,
+				48D85922201BF77800D556D2 /* es-MX */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -317,6 +380,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -374,6 +438,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -425,6 +490,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 35EJ4JQ7H9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ReforzaTecv1/Evaluacion",
@@ -446,6 +512,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 35EJ4JQ7H9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ReforzaTecv1/Evaluacion",

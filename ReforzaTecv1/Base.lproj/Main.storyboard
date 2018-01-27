@@ -40,7 +40,7 @@
                             <outletCollection property="gestureRecognizers" destination="xg0-NS-KEf" appends="YES" id="QMt-om-6mw"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Mis Materias" id="g4Z-5z-I4Z">
+                    <navigationItem key="navigationItem" title="My Subjects" id="g4Z-5z-I4Z">
                         <barButtonItem key="backBarButtonItem" title=" " id="2Kf-Sl-TVA"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="VlV-9C-a8a">
                             <connections>
@@ -134,14 +134,7 @@
                             <outletCollection property="gestureRecognizers" destination="LSQ-Eh-Le7" appends="YES" id="tG3-rp-M2E"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Materias Disponibles" id="fPQ-ck-wuW">
-                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="zI3-vD-cst">
-                            <color key="tintColor" red="1" green="0.26746119270000002" blue="0.13069117999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="borrarTodo" destination="udn-RV-yHy" id="LpI-Yo-xgp"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Available Subjects" id="fPQ-ck-wuW"/>
                     <connections>
                         <outlet property="tableView" destination="LVz-8D-PEC" id="IN0-pu-TYz"/>
                     </connections>
@@ -218,7 +211,7 @@
                                                     <constraint firstAttribute="height" constant="60" id="IO1-SY-ECL"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
-                                                <state key="normal" title="Siguiente">
+                                                <state key="normal" title="Next">
                                                     <color key="titleColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
@@ -299,26 +292,26 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YGg-cy-NsJ">
                                             <rect key="frame" x="28" y="10" width="247" height="88"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Resultados" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeU-C9-UwI">
-                                                    <rect key="frame" x="69" y="0.0" width="109.5" height="26.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeU-C9-UwI">
+                                                    <rect key="frame" x="87" y="0.0" width="73" height="26.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aciertos:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L7j-Wp-AID">
-                                                    <rect key="frame" x="89.5" y="26.5" width="68" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct answers:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L7j-Wp-AID">
+                                                    <rect key="frame" x="58.5" y="26.5" width="130" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Errores:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQy-4Z-dyy">
-                                                    <rect key="frame" x="93.5" y="47" width="60" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong answers:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQy-4Z-dyy">
+                                                    <rect key="frame" x="62" y="47" width="123" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiempo:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="spm-W1-7YH">
-                                                    <rect key="frame" x="92.5" y="67.5" width="62.5" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="spm-W1-7YH">
+                                                    <rect key="frame" x="102.5" y="67.5" width="42.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -341,7 +334,7 @@
                                         <constraint firstAttribute="height" constant="55" id="leU-vF-yCr"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <state key="normal" title="Revisar"/>
+                                    <state key="normal" title="Check"/>
                                     <connections>
                                         <action selector="RevisarA:" destination="Byc-Nx-yLP" eventType="touchUpInside" id="A8x-Xj-kOM"/>
                                     </connections>
@@ -454,7 +447,7 @@
                                                     <constraint firstAttribute="height" constant="60" id="7Qi-BN-tE7"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
-                                                <state key="normal" title="Revisar">
+                                                <state key="normal" title="Check">
                                                     <color key="titleColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
@@ -573,7 +566,7 @@
                                     <constraint firstAttribute="height" constant="60" id="RLs-7e-zWn"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="Revisar">
+                                <state key="normal" title="Check">
                                     <color key="titleColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>

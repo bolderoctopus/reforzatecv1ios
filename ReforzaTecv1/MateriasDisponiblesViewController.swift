@@ -38,27 +38,6 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     }
     
     
-    @IBAction func borrarTodo() {
-        let alerta = UIAlertController(title: "Purgar CoreData", message: "Seguro borrar todo?", preferredStyle: UIAlertControllerStyle.alert)
-        alerta.addAction(UIAlertAction(title: "Purgar", style: UIAlertActionStyle.destructive, handler: {_ in
-            do{
-                let materiasGuardadas = try self.context.fetch(Materia.fetchRequest()) as! [Materia]
-                for m in materiasGuardadas {
-                    print("Borrando \(m.nombre!)")
-                    self.context.delete(m)
-                }
-                (UIApplication.shared.delegate as! AppDelegate).saveContext()
-                print("CoreData purgado")
-            }catch {
-                print("Error al tratar de borrar todas las materias")
-            }
-        }))
-        alerta.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: {_ in
-            print("Cancelado, nada se borrara.")
-        }))
-        self.present(alerta, animated: true, completion: nil)
-    }
-    
     @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
         if sender.state == UIGestureRecognizerState.began {
             var touchPoint = sender.location(in: self.view)

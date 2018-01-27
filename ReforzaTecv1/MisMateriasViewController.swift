@@ -176,24 +176,31 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     @objc func mostrarInfo() {
         let alerta = UIAlertController(title: nil , message: nil, preferredStyle: .actionSheet)
         // enviar comentarios
-        alerta.addAction(UIAlertAction(title:"Enviar comentarios", style: .default, handler: {_ in
+        let feedbackString = NSLocalizedString("Send feedback", comment: "")
+        alerta.addAction(UIAlertAction(title: feedbackString, style: .default, handler: {_ in
             self.preguntarComentarios()
         }))
         
         // mostrar creditos
-        alerta.addAction(UIAlertAction(title:"Licencias de terceros", style: .default, handler: { _ in
+        let thirdsString = NSLocalizedString("Third party licences", comment: "")
+        alerta.addAction(UIAlertAction(title: thirdsString, style: .default, handler: { _ in
             self.mostrarCreditos()
         }))
         
         // cancelar
-        alerta.addAction(UIAlertAction(title:"Ocultar", style: .cancel, handler: nil))
+        let dismissString = NSLocalizedString("Dismiss", comment: "")
+        alerta.addAction(UIAlertAction(title: dismissString, style: .cancel, handler: nil))
         self.present(alerta, animated: true, completion: nil)
     }
     
     func preguntarComentarios() {
+        let thoughtString = NSLocalizedString("What are your thought about ReforzaTec?", comment: "")
+        let sendString = NSLocalizedString("Send", comment: "");
+        let warningString = NSLocalizedString("Do not include personal data", comment: "");
+        let cancelString = NSLocalizedString("Cancel", comment: "");
         
-        let comentariosAlert = UIAlertController(title: "¿Qué piensas de la aplicación?", message: nil, preferredStyle: .alert)
-        comentariosAlert.addAction(UIAlertAction(title: "Enviar", style: .default, handler: {(resultado: UIAlertAction) -> Void in
+        let comentariosAlert = UIAlertController(title: thoughtString, message: nil, preferredStyle: .alert)
+        comentariosAlert.addAction(UIAlertAction(title: sendString, style: .default, handler: {(resultado: UIAlertAction) -> Void in
             if let comentario = comentariosAlert.textFields?.first!.text{
                 print("Enviando: \(comentario)")
                 let comentarioCodificado = comentario.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -206,10 +213,11 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
         ))
-        comentariosAlert.addAction(UIAlertAction(title: "Cancelar", style: .destructive, handler: nil))
+        
+        comentariosAlert.addAction(UIAlertAction(title: cancelString, style: .destructive, handler: nil))
         
         comentariosAlert.addTextField(configurationHandler: { textField in
-            textField.placeholder = "No incluyas datos personales"
+            textField.placeholder = warningString
             textField.returnKeyType = UIReturnKeyType.done
             
         })
@@ -217,18 +225,20 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         self.present(comentariosAlert, animated: true, completion: nil)
     }
     func mostrarCreditos() {
-        var mensaje = String()
-        mensaje.append("\n\u{2022}Íconos diseñados por: ")
+        var mensaje = String("\n\u{2022}")
+        mensaje.append(NSLocalizedString("Icons designed by:", comment: ""))
         mensaje.append("Freepik, SmashIcons, Iconnice\n")
-        mensaje.append("de ")
+        mensaje.append(NSLocalizedString("from ", comment: ""))
         mensaje.append("www.flaticon.com \n\n")
         mensaje.append("\u{2022}DLRadioButton ")
-        mensaje.append(" por: ")
+        mensaje.append(NSLocalizedString(" by: ", comment: ""))
         mensaje.append("DavydLiu\n\n\n")
         mensaje.append("Instituto Tecnológico Superior de Uruapan")
         
+        
+        let dismissString = NSLocalizedString("Dismiss", comment: "")
         let creditosAlert = UIAlertController(title: "", message: mensaje, preferredStyle: .alert)
-        creditosAlert.addAction(UIAlertAction(title: "Ocultar", style: .default, handler: nil))
+        creditosAlert.addAction(UIAlertAction(title: dismissString, style: .default, handler: nil))
         self.present(creditosAlert, animated: true, completion: nil)
     }
     
@@ -237,8 +247,12 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     //Elimina la materia de coreData y la celda del tableview
     //primero muestra
     func eliminarMateria(_ celda : CustomTableViewCell) {
-        let alerta = UIAlertController(title: "¿Deseas borrar la materia \(celda.nombreLabel.text!)?", message: "Tu progreso será perdido", preferredStyle: UIAlertControllerStyle.actionSheet)
-        alerta.addAction(UIAlertAction(title: "Borrar", style: UIAlertActionStyle.destructive, handler: {_ in
+        let confirmationString = NSLocalizedString("Do you wish to delete the subject " , comment: "")
+        let deleteString = NSLocalizedString("Delete", comment: "")
+        let cancelString = NSLocalizedString("Cancel", comment: "")
+        
+        let alerta = UIAlertController(title: confirmationString + celda.nombreLabel.text! + "?", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
+        alerta.addAction(UIAlertAction(title: deleteString, style: UIAlertActionStyle.destructive, handler: {_ in
             let indexPath = self.tableView.indexPath(for: celda)!
             let coreData = celda.referenciaCD!
         
@@ -267,7 +281,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
             self.mostrarEmptyView()
             //self.lastCell = nil
         }))
-        alerta.addAction(UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel, handler: {_ in
+        alerta.addAction(UIAlertAction(title: cancelString, style: UIAlertActionStyle.cancel, handler: {_ in
             print("Cancelado, nada se borrara.")
         }))
         self.present(alerta, animated: true, completion: nil)

@@ -141,7 +141,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
         tableView.register(UINib(nibName: "PreguntaOMTVC", bundle: nil), forCellReuseIdentifier: "preguntaOpcion")
         tableView.estimatedRowHeight = 150
         tableView.rowHeight = UITableViewAutomaticDimension
-        
+        self.title = NSLocalizedString("Quiz", comment: "")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -255,11 +255,13 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
     func tiempoTranscurrido() -> String {
         let segundos = Int(horaInicial.timeIntervalSinceNow.magnitude)
         let minutos = Int(segundos/60)
+        let segundosString = NSLocalizedString("seconds", comment: "")
         
         if(minutos == 0) {
-            return " \(segundos % 60) segundos"
+            return " \(segundos % 60) " + segundosString
         } else{
-            return " \(minutos) minutos:\(segundos % 60) segundos"
+            let minutosString = NSLocalizedString("minutes", comment: "")
+            return " \(minutos) \(minutosString):\(segundos % 60) \(segundosString)"
         }
         
     }

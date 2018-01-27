@@ -17,6 +17,11 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
     var evaluacionPorAbrir: [Evaluacion]!
     var documentoPorAbrir: String!
     
+    let teoriaString = NSLocalizedString("Notes", comment: "")
+    let ejemplosSring = NSLocalizedString("Examples", comment: "")
+    let ejerciciosString = NSLocalizedString("Exercises", comment: "")
+    let evaluacionString = NSLocalizedString("Quiz", comment: "")
+    
     var secciones: [UnidadStruct] = []
 
     override func viewDidLoad() {
@@ -35,19 +40,19 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
             
             var nuevaSeccion = UnidadStruct(nombre: nombre, descripcion: descrip, numero: i)
             if let _ = uni.ejemplo{
-                nuevaSeccion.contenido.append("Ejemplos")
+                nuevaSeccion.contenido.append(ejemplosSring)
             }
             if let _ = uni.teoria{
-                nuevaSeccion.contenido.append("Teoria")
+                nuevaSeccion.contenido.append(teoriaString)
             }
             if let e = uni.ejercicios{
                 if (e.count != 0){
-                    nuevaSeccion.contenido.append("Ejercicios")
+                    nuevaSeccion.contenido.append(ejerciciosString)
                 }
             }
             if let ev = uni.evaluaciones{
                 if (ev.count != 0){
-                    nuevaSeccion.contenido.append("Evaluación")
+                    nuevaSeccion.contenido.append(evaluacionString)
                 }
             }
             
@@ -108,7 +113,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ExpandibleHeaderView()
         let uni = MateriaAbierta.unidades![section] as! Unidad
-        header.customInit(title: uni.nombreUni ?? "Unidad \(section)", section: section, delegate: self)
+        header.customInit(title: uni.nombreUni ?? NSLocalizedString("Topic", comment: "") + " \(section)", section: section, delegate: self)
         return header
         
     }
@@ -137,13 +142,13 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
     //Dependiendo de la fila escojida nos lleva a la vista
     func abrir (actividad: String, enUnidad: Int) {
         switch actividad {
-        case "Teoria":
+        case teoriaString:
             documentoPorAbrir = (MateriaAbierta.unidades![enUnidad] as! Unidad).teoria!
             self.performSegue(withIdentifier: "segueWeb", sender: self)
-        case "Ejemplos":
+        case ejemplosSring:
             documentoPorAbrir = (MateriaAbierta.unidades![enUnidad] as! Unidad).ejemplo!
             self.performSegue(withIdentifier: "segueWeb", sender: self)
-        case "Ejercicios":
+        case ejerciciosString:
             let uniAbierta = self.MateriaAbierta.unidades![enUnidad] as! Unidad
             ejerciciosPorAbrir = uniAbierta.ejercicios!.allObjects as! [Ejercicio]
             // ordenando para que primero salgan los que tienen mayor numero de veces falladas
@@ -159,7 +164,7 @@ class ContenidoMateria: UITableViewController, ExpandibleHeaderRowDelegate   {
                 ejerciciosPorAbrir = arregloTemporal
             }
             self.abrirEjercicio()
-        case "Evaluación":
+        case evaluacionString:
             evaluacionPorAbrir = (MateriaAbierta.unidades![enUnidad] as! Unidad).evaluaciones?.allObjects as! [Evaluacion]
             self.performSegue(withIdentifier: "segueEvaluacion", sender: self)
         default:

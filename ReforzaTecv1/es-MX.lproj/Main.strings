@@ -1,0 +1,84 @@
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "2Kf-Sl-TVA"; */
+"2Kf-Sl-TVA.title" = " ";
+
+/* Class = "UIViewController"; title = "Opcion Multiple"; ObjectID = "6YB-eh-6gM"; */
+"6YB-eh-6gM.title" = "Opcion Multiple";
+
+/* Class = "UIButton"; normalTitle = "Siguiente"; ObjectID = "9Og-t4-7hl"; */
+"9Og-t4-7hl.normalTitle" = "Siguiente";
+
+/* Class = "UIButton"; normalTitle = "Revisar"; ObjectID = "AsH-vA-Bu0"; */
+"AsH-vA-Bu0.normalTitle" = "Revisar";
+
+/* Class = "UITableViewController"; title = "Evaluacion"; ObjectID = "Byc-Nx-yLP"; */
+"Byc-Nx-yLP.title" = "Evaluacion";
+
+/* Class = "UINavigationItem"; title = "Voz"; ObjectID = "Cfa-W8-Ie7"; */
+"Cfa-W8-Ie7.title" = "Voz";
+
+/* Class = "UITextField"; text = "text"; ObjectID = "Glf-fm-X8B"; */
+"Glf-fm-X8B.text" = "text";
+
+/* Class = "UIViewController"; title = "MisMaterias"; ObjectID = "IRd-6T-GpT"; */
+"IRd-6T-GpT.title" = "MisMaterias";
+
+/* Class = "UILabel"; text = "Aciertos:"; ObjectID = "L7j-Wp-AID"; */
+"L7j-Wp-AID.text" = "Aciertos:";
+
+/* Class = "UILabel"; text = "Errores:"; ObjectID = "OQy-4Z-dyy"; */
+"OQy-4Z-dyy.text" = "Errores:";
+
+/* Class = "UIViewController"; title = "Voz"; ObjectID = "Q2w-mz-ZxS"; */
+"Q2w-mz-ZxS.title" = "Voz";
+
+/* Class = "UIButton"; normalTitle = "Revisar"; ObjectID = "QM5-xU-LND"; */
+"QM5-xU-LND.normalTitle" = "Revisar";
+
+/* Class = "UITableViewController"; title = "ContenidoMateria"; ObjectID = "RgS-nj-sRd"; */
+"RgS-nj-sRd.title" = "ContenidoMateria";
+
+/* Class = "UIViewController"; title = "Teoria"; ObjectID = "Te2-Dt-Ps1"; */
+"Te2-Dt-Ps1.title" = "Teoria";
+
+/* Class = "UIViewController"; title = "Escritura"; ObjectID = "YqX-N0-9W0"; */
+"YqX-N0-9W0.title" = "Escritura";
+
+/* Class = "UILabel"; text = "Resultados"; ObjectID = "aeU-C9-UwI"; */
+"aeU-C9-UwI.text" = "Resultados";
+
+/* Class = "UITextField"; text = "text"; ObjectID = "cUl-E3-a8m"; */
+"cUl-E3-a8m.text" = "text";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "; ObjectID = "dyQ-6z-1Iy"; */
+"dyQ-6z-1Iy.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ";
+
+/* Class = "UINavigationItem"; title = "Materias Disponibles"; ObjectID = "fPQ-ck-wuW"; */
+"fPQ-ck-wuW.title" = "Materias Disponibles";
+
+/* Class = "UINavigationItem"; title = "Mis Materias"; ObjectID = "g4Z-5z-I4Z"; */
+"g4Z-5z-I4Z.title" = "Mis Materias";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "jT9-1D-5KP"; */
+"jT9-1D-5KP.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "; ObjectID = "peh-9t-atE"; */
+"peh-9t-atE.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ";
+
+/* Class = "UIViewController"; title = "Ordenar"; ObjectID = "pv3-9h-bv0"; */
+"pv3-9h-bv0.title" = "Ordenar";
+
+/* Class = "UIButton"; normalTitle = "Revisar"; ObjectID = "r2t-nd-09U"; */
+"r2t-nd-09U.normalTitle" = "Revisar";
+
+/* Class = "UILabel"; text = "Tiempo:"; ObjectID = "spm-W1-7YH"; */
+"spm-W1-7YH.text" = "Tiempo:";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "u1v-VG-IEB"; */
+"u1v-VG-IEB.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UIButton"; normalTitle = "Revisar"; ObjectID = "uO9-bg-KRM"; */
+"uO9-bg-KRM.normalTitle" = "Revisar";
+
+/* Class = "UIViewController"; title = "Materias Disponibles"; ObjectID = "udn-RV-yHy"; */
+"udn-RV-yHy.title" = "Materias Disponibles";

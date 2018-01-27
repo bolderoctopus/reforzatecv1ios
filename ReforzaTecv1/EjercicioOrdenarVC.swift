@@ -150,6 +150,10 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         // iniciando boton
         iniciarBoton()
         
+        let ejercicioString = NSLocalizedString("Exercise", comment: "")
+        let numero = " \(5 - Ejercicios.count)/5"
+        self.title = ejercicioString + numero
+        
     }
     
    
@@ -175,15 +179,10 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @objc func accionDelBoton() {
-        if let titulo = BotonRevisar.titleLabel?.text{
-            switch titulo {
-            case "Revisar":
-                revisar()
-            case "Siguiente":
-                siguienteEjercicio()
-            default:
-                print("Texto del boton desconocido '\(titulo)'")
-            }
+        if yaFueRevisado{
+            siguienteEjercicio()
+        }else{
+            revisar()
         }
     }
     func iniciarBoton(){
@@ -212,7 +211,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
             // removiendo el ultimo espacio del ciclo
             respuestaDelUsuario.remove(at: respuestaDelUsuario.index(before: respuestaDelUsuario.endIndex))
         }
-        BotonRevisar.setTitle("Siguiente", for: .normal)
+        BotonRevisar.setTitle(NSLocalizedString("Next", comment: ""), for: .normal)
 
         if(RespuestaCorrecta == respuestaDelUsuario){
             CalificacionImageView.image = #imageLiteral(resourceName: "correcto")

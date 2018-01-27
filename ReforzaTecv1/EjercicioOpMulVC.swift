@@ -28,8 +28,8 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     var Fondo: CGPoint!
     var color : UIColor!
-    var opcionesDeRespuesta : [String]!// = ["incorrecto","incorrecto","incorrecto","correcto"]
-    var respuesta : String!// = "correcto"
+    var opcionesDeRespuesta : [String]!
+    var respuesta : String!
     var botonSigOculto: Bool!
     var contestoBien: Bool!
     
@@ -90,6 +90,11 @@ class EjercicioOpMulVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         Fondo = CGPoint(x:0, y: altura)
         AlturaVCConstraint.constant = Fondo.y
         configurarTabla()
+        
+        let ejercicioString = NSLocalizedString("Exercise", comment: "")
+        let numero = " \(5 - Ejercicios.count)/5"
+        self.title = ejercicioString + numero
+        
     }
    
 

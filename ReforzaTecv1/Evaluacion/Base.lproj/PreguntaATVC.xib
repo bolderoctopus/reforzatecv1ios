@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="preguntaAbierta" rowHeight="302" id="KGk-i7-Jjw" customClass="PreguntaATVC" customModule="ReforzaTecv1" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="301"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="300.5"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="2UT-7t-25E">
+                        <rect key="frame" x="15" y="10" width="290" height="280.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="748" text="1. Aqui es donde va la pregunta, pero dime que pasa si esta tiene mucho texto" textAlignment="natural" lineBreakMode="headTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FoX-EK-jJ1">
+                                <rect key="frame" x="0.0" y="0.0" width="290" height="260.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="242" verticalCompressionResistancePriority="730" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your answer here" textAlignment="center" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="c1Y-Wy-ufu">
+                                <rect key="frame" x="0.0" y="280.5" width="290" height="0.0"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="textChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="b9z-m1-9Xb"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="2UT-7t-25E" secondAttribute="trailing" constant="15" id="DkY-Ah-3za"/>
+                    <constraint firstItem="2UT-7t-25E" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="T0D-TD-krw"/>
+                    <constraint firstAttribute="bottom" secondItem="2UT-7t-25E" secondAttribute="bottom" constant="10" id="wZg-g6-yEk"/>
+                    <constraint firstItem="2UT-7t-25E" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="yPh-Eq-o4i"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="PreguntaL" destination="FoX-EK-jJ1" id="keS-ky-kZk"/>
+                <outlet property="RespuestaTF" destination="c1Y-Wy-ufu" id="LLp-6K-NdJ"/>
+            </connections>
+            <point key="canvasLocation" x="25" y="180.5"/>
+        </tableViewCell>
+    </objects>
+</document>

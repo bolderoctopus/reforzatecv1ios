@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  ReforzaTecv1
+
+  Created by Omar Rico on 1/26/18.
+  Copyright © 2018 TecUruapan. All rights reserved.
+*/
+
+"Send feedback"= "Enviar comentarios";
+"Third party licences" = "Licencias de terceros";
+"Dismiss" = "Ocultar";
+"Do you wish to delete the subject " = "¿Estás seguro de borrar la materia de ";
+"Delete" = "Borrar";
+"Cancel" = "Cancelar";
+"Topic" = "Unidad";
+"Notes" = "Teoría";
+"Examples" = "Ejemplos";
+"Exercises" = "Ejercicios";
+"Exercise" = "Ejercicio";
+"Quiz" = "Evaluación";
+"Next" = "Siguiente";
+"Check" = "Revisar";
+"Send" = "Enviar";
+"Do not include personal data" = "No incluyas información personal";
+"What are your thought about ReforzaTec?" = "¿Qué piensas de ReforzaTec?";
+"No Internet connection detected" = "No hay conexión a Internet";
+"Voice exercises requiere an Internet connection." = "Los ejercicios de voz requieren una conexión a Internet.";
+"Icons designed by:" = "Íconos diseñados por:";
+"from " = "de ";
+" by: " = " por: ";
+"seconds" = "segundos";
+"minutes" = "minutos";

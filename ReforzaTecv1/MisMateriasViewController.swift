@@ -13,9 +13,9 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     
     let color : UIColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    @IBOutlet weak var tableView: CustomUITableView!
+    @IBOutlet weak var tableView: UITableView!
     var materiasDescargadas : [Materia] = []
-    var lastCell : CustomTableViewCell?//   = CustomTableViewCell ()//guarda la celda que esta expandida?
+    var lastCell : MateriaCell?//   = CustomTableViewCell ()//guarda la celda que esta expandida?
     var tagCeldaExpandida = -1//identifica a la celda abierta
     
     //lo puse en view did appear por que en view did load no funcionaba?
@@ -41,6 +41,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         botonInfo.addTarget(self, action: #selector(mostrarInfo), for: .touchUpInside)
         let barButton = UIBarButtonItem.init(customView: botonInfo)
         self.navigationItem.leftBarButtonItem = barButton
+        
     }
  
     func recuperarData(){
@@ -66,7 +67,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     func configurarTabla() {
         tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.register(UINib(nibName : "CustomTableViewCell", bundle : nil) ,forCellReuseIdentifier: "CustomTableViewCell")
+        tableView.register(UINib(nibName : "MateriaCell", bundle : nil) ,forCellReuseIdentifier: "MateriaCell")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = true
@@ -79,7 +80,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MateriaCell", for: indexPath) as! MateriaCell
         
         //if !cell.cellExists {
             let m = materiasDescargadas[indexPath.row]
@@ -90,6 +91,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
             cell.titleView.backgroundColor = cell.detailsView.backgroundColor
             cell.delegate = self
             cell.referenciaCD = m
+            cell.VersionLabel.text = NSLocalizedString("version", comment: "") + ": \(m.version)"
             
             //para saber cual boton pertenece a cual materia
             cell.openButton.tag = indexPath.row
@@ -123,7 +125,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         if segue.identifier == "segueContenido" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let contenidoView = segue.destination as! ContenidoMateria
-                let selectedRow = tableView.cellForRow(at: indexPath) as! CustomTableViewCell
+                let selectedRow = tableView.cellForRow(at: indexPath) as! MateriaCell
                 contenidoView.titulo = selectedRow.nombreLabel.text!
                 contenidoView.color = selectedRow.detailsView.backgroundColor
                 contenidoView.MateriaAbierta = selectedRow.referenciaCD
@@ -163,7 +165,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         
         if numero != previousCellTag {
             tagCeldaExpandida = numero
-            lastCell = tableView.cellForRow(at: IndexPath(row: tagCeldaExpandida, section: 0)) as? CustomTableViewCell
+            lastCell = tableView.cellForRow(at: IndexPath(row: tagCeldaExpandida, section: 0)) as? MateriaCell
             self.lastCell!.animate(duration: 0.2, c: {
                 self.view.layoutIfNeeded()
             })
@@ -246,7 +248,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     //Cumpliendo con el delegado del CustomTableView para que al darle en el boton de borrar de la celda se llame aqui esto y se borre
     //Elimina la materia de coreData y la celda del tableview
     //primero muestra
-    func eliminarMateria(_ celda : CustomTableViewCell) {
+    func eliminarMateria(_ celda : MateriaCell) {
         let confirmationString = NSLocalizedString("Do you wish to delete the subject " , comment: "")
         let deleteString = NSLocalizedString("Delete", comment: "")
         let cancelString = NSLocalizedString("Cancel", comment: "")

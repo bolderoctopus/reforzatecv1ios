@@ -9,10 +9,10 @@
 import UIKit
 
 protocol BtnBorrarMateriaDelegate : class {
-    func eliminarMateria (_ materia: CustomTableViewCell)
+    func eliminarMateria (_ materia: MateriaCell)
 }
 
-class CustomTableViewCell: UITableViewCell {
+class MateriaCell: UITableViewCell {
     var referenciaCD : Materia?
     weak var delegate:BtnBorrarMateriaDelegate?
     var cellExists : Bool = false
@@ -28,6 +28,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var openButton: UIButton!
    
     
+    @IBOutlet weak var VersionLabel: UILabel!
     @IBOutlet weak var descripcionTextView: UITextView!
     @IBOutlet weak var removeButton: UIButton!
     @IBOutlet weak var heighConts: NSLayoutConstraint!

@@ -13,8 +13,8 @@
 		4818A6401F298444003BD339 /* ContenidoMateria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4818A63F1F298444003BD339 /* ContenidoMateria.swift */; };
 		4818A6421F2BB002003BD339 /* PDFWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4818A6411F2BB002003BD339 /* PDFWebViewController.swift */; };
 		483241FE1F30314B00E360CC /* EjercicioOpMulVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483241FD1F30314B00E360CC /* EjercicioOpMulVC.swift */; };
-		4853D85F1F23114A008FA029 /* CustomTableViewCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4853D85E1F23114A008FA029 /* CustomTableViewCell2.xib */; };
-		4853D8611F23115C008FA029 /* CustomTableViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4853D8601F23115C008FA029 /* CustomTableViewCell2.swift */; };
+		4853D85F1F23114A008FA029 /* MateriaDescargableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4853D85E1F23114A008FA029 /* MateriaDescargableCell.xib */; };
+		4853D8611F23115C008FA029 /* MateriaDescargableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4853D8601F23115C008FA029 /* MateriaDescargableCell.swift */; };
 		48557FDE1FBED3BF00CD1A2B /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 48557FDD1FBED3BF00CD1A2B /* DLRadioButton.m */; };
 		4868E7081F70D0FE00135BEE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4868E7061F70D0FE00135BEE /* Model.xcdatamodeld */; };
 		489096661FAC641800C8AF3E /* EjercicioEscrituraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489096651FAC641800C8AF3E /* EjercicioEscrituraVC.swift */; };
@@ -35,10 +35,9 @@
 		48F5BDDA1F1C917700242E95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48F5BDD81F1C917700242E95 /* Main.storyboard */; };
 		48F5BDDC1F1C917700242E95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48F5BDDB1F1C917700242E95 /* Assets.xcassets */; };
 		48F5BDDF1F1C917700242E95 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48F5BDDD1F1C917700242E95 /* LaunchScreen.storyboard */; };
-		48F5BDE81F1CAE9000242E95 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDE61F1CAE9000242E95 /* CustomTableViewCell.swift */; };
-		48F5BDE91F1CAE9000242E95 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48F5BDE71F1CAE9000242E95 /* CustomTableViewCell.xib */; };
+		48F5BDE81F1CAE9000242E95 /* MateriaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDE61F1CAE9000242E95 /* MateriaCell.swift */; };
+		48F5BDE91F1CAE9000242E95 /* MateriaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48F5BDE71F1CAE9000242E95 /* MateriaCell.xib */; };
 		48F5BDF01F1CB1A500242E95 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDEF1F1CB1A500242E95 /* Utils.swift */; };
-		48F5BDF21F1CB9A900242E95 /* CustomUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDF11F1CB9A900242E95 /* CustomUITableView.swift */; };
 		48F5BDF41F1D583700242E95 /* MateriasDisponiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDF31F1D583700242E95 /* MateriasDisponiblesViewController.swift */; };
 		48F5BDF61F1D684300242E95 /* MateriaObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDF51F1D684300242E95 /* MateriaObj.swift */; };
 		B77A801C1F29164200B73C43 /* UnidadStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A801B1F29164200B73C43 /* UnidadStruct.swift */; };
@@ -52,8 +51,8 @@
 		4818A63F1F298444003BD339 /* ContenidoMateria.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContenidoMateria.swift; sourceTree = "<group>"; };
 		4818A6411F2BB002003BD339 /* PDFWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFWebViewController.swift; sourceTree = "<group>"; };
 		483241FD1F30314B00E360CC /* EjercicioOpMulVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EjercicioOpMulVC.swift; sourceTree = "<group>"; };
-		4853D85E1F23114A008FA029 /* CustomTableViewCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell2.xib; sourceTree = "<group>"; };
-		4853D8601F23115C008FA029 /* CustomTableViewCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell2.swift; sourceTree = "<group>"; };
+		4853D85E1F23114A008FA029 /* MateriaDescargableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MateriaDescargableCell.xib; sourceTree = "<group>"; };
+		4853D8601F23115C008FA029 /* MateriaDescargableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriaDescargableCell.swift; sourceTree = "<group>"; };
 		48557FDB1FBED3BE00CD1A2B /* ReforzaTecv1-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReforzaTecv1-Bridging-Header.h"; sourceTree = "<group>"; };
 		48557FDC1FBED3BF00CD1A2B /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRadioButton.h; sourceTree = "<group>"; };
 		48557FDD1FBED3BF00CD1A2B /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLRadioButton.m; sourceTree = "<group>"; };
@@ -84,10 +83,9 @@
 		48F5BDDB1F1C917700242E95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48F5BDDE1F1C917700242E95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48F5BDE01F1C917700242E95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		48F5BDE61F1CAE9000242E95 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
-		48F5BDE71F1CAE9000242E95 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
+		48F5BDE61F1CAE9000242E95 /* MateriaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriaCell.swift; sourceTree = "<group>"; };
+		48F5BDE71F1CAE9000242E95 /* MateriaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MateriaCell.xib; sourceTree = "<group>"; };
 		48F5BDEF1F1CB1A500242E95 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		48F5BDF11F1CB9A900242E95 /* CustomUITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUITableView.swift; sourceTree = "<group>"; };
 		48F5BDF31F1D583700242E95 /* MateriasDisponiblesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriasDisponiblesViewController.swift; sourceTree = "<group>"; };
 		48F5BDF51F1D684300242E95 /* MateriaObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriaObj.swift; sourceTree = "<group>"; };
 		B77A801B1F29164200B73C43 /* UnidadStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnidadStruct.swift; sourceTree = "<group>"; };
@@ -105,19 +103,62 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		48D82D131FBC827B00B15E61 /* Evaluacion */ = {
+		48472D40201DA5FB0001B297 /* Vistas */ = {
 			isa = PBXGroup;
 			children = (
-				48EF39501FB99F23000325AB /* EvaluacionTVC.swift */,
-				48EF39481FB99666000325AB /* PreguntaATVC.swift */,
+				48F5BDDD1F1C917700242E95 /* LaunchScreen.storyboard */,
+				48F5BDD81F1C917700242E95 /* Main.storyboard */,
+				48F5BDE71F1CAE9000242E95 /* MateriaCell.xib */,
+				4853D85E1F23114A008FA029 /* MateriaDescargableCell.xib */,
+				48D8592C201C254700D556D2 /* MateriasDisponiblesEmptyView.xib */,
+				48D85931201C255D00D556D2 /* MisMateriasEmptyView.xib */,
+				48D73E631FBECC56006D5EEE /* OpcionTableCell.xib */,
 				48D85936201C513F00D556D2 /* PreguntaATVC.xib */,
+				48EF394D1FB9979D000325AB /* PreguntaOMTVC.xib */,
+			);
+			path = Vistas;
+			sourceTree = "<group>";
+		};
+		48472D41201DA63D0001B297 /* Controladores */ = {
+			isa = PBXGroup;
+			children = (
+				4818A63F1F298444003BD339 /* ContenidoMateria.swift */,
+				48EF39501FB99F23000325AB /* EvaluacionTVC.swift */,
+				489096651FAC641800C8AF3E /* EjercicioEscrituraVC.swift */,
+				489096671FAC68DA00C8AF3E /* EjercicioVozVC.swift */,
+				4807010C1F899C03007DA534 /* EjercicioOrdenarVC.swift */,
+				483241FD1F30314B00E360CC /* EjercicioOpMulVC.swift */,
+				4853D8601F23115C008FA029 /* MateriaDescargableCell.swift */,
+				48F5BDF31F1D583700242E95 /* MateriasDisponiblesViewController.swift */,
+				48F5BDD61F1C917700242E95 /* MisMateriasViewController.swift */,
+				48F5BDE61F1CAE9000242E95 /* MateriaCell.swift */,
+				48D73E611FBECC3D006D5EEE /* OpcionTableCell.swift */,
+				480701101F8F68F7007DA534 /* PalabraCollectionViewCell.swift */,
+				4818A6411F2BB002003BD339 /* PDFWebViewController.swift */,
+				48EF39481FB99666000325AB /* PreguntaATVC.swift */,
+				48EF394C1FB9979D000325AB /* PreguntaOMTVC.swift */,
+			);
+			name = Controladores;
+			sourceTree = "<group>";
+		};
+		48472D42201DA6890001B297 /* Otros */ = {
+			isa = PBXGroup;
+			children = (
+				48F5BDD41F1C917700242E95 /* AppDelegate.swift */,
+				48F5BDDB1F1C917700242E95 /* Assets.xcassets */,
+				B77A801D1F29191E00B73C43 /* ExpandibleHeaderView.swift */,
+				48D73E651FBECCD3006D5EEE /* Extensiones.swift */,
 				48557FDC1FBED3BF00CD1A2B /* DLRadioButton.h */,
 				48557FDD1FBED3BF00CD1A2B /* DLRadioButton.m */,
-				48EF394C1FB9979D000325AB /* PreguntaOMTVC.swift */,
-				48EF394D1FB9979D000325AB /* PreguntaOMTVC.xib */,
+				480DEA3E1FF4C5B300939AE1 /* Downloader.swift */,
+				48D85924201BF7F900D556D2 /* Localizable.strings */,
+				48F5BDF51F1D684300242E95 /* MateriaObj.swift */,
+				4868E7061F70D0FE00135BEE /* Model.xcdatamodeld */,
 				48557FDB1FBED3BE00CD1A2B /* ReforzaTecv1-Bridging-Header.h */,
+				48F5BDEF1F1CB1A500242E95 /* Utils.swift */,
+				B77A801B1F29164200B73C43 /* UnidadStruct.swift */,
 			);
-			path = Evaluacion;
+			path = Otros;
 			sourceTree = "<group>";
 		};
 		48D85938201C538300D556D2 /* Frameworks */ = {
@@ -127,37 +168,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		48E367C81F342E5300E3379A /* Ejercicios */ = {
-			isa = PBXGroup;
-			children = (
-				489096651FAC641800C8AF3E /* EjercicioEscrituraVC.swift */,
-				489096671FAC68DA00C8AF3E /* EjercicioVozVC.swift */,
-				4807010C1F899C03007DA534 /* EjercicioOrdenarVC.swift */,
-				483241FD1F30314B00E360CC /* EjercicioOpMulVC.swift */,
-				48D73E631FBECC56006D5EEE /* OpcionTableCell.xib */,
-				48D73E611FBECC3D006D5EEE /* OpcionTableCell.swift */,
-			);
-			name = Ejercicios;
-			sourceTree = "<group>";
-		};
-		48E367C91F342E9C00E3379A /* Contenido */ = {
-			isa = PBXGroup;
-			children = (
-				48D82D131FBC827B00B15E61 /* Evaluacion */,
-				4818A63F1F298444003BD339 /* ContenidoMateria.swift */,
-				B77A801D1F29191E00B73C43 /* ExpandibleHeaderView.swift */,
-				4818A6411F2BB002003BD339 /* PDFWebViewController.swift */,
-				48E367C81F342E5300E3379A /* Ejercicios */,
-			);
-			name = Contenido;
-			sourceTree = "<group>";
-		};
 		48F5BDC81F1C917700242E95 = {
 			isa = PBXGroup;
 			children = (
+				48D85938201C538300D556D2 /* Frameworks */,
 				48F5BDD21F1C917700242E95 /* Products */,
 				48F5BDD31F1C917700242E95 /* ReforzaTecv1 */,
-				48D85938201C538300D556D2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -172,29 +188,10 @@
 		48F5BDD31F1C917700242E95 /* ReforzaTecv1 */ = {
 			isa = PBXGroup;
 			children = (
-				48E367C91F342E9C00E3379A /* Contenido */,
-				48F5BDD41F1C917700242E95 /* AppDelegate.swift */,
-				4868E7061F70D0FE00135BEE /* Model.xcdatamodeld */,
-				48F5BDDB1F1C917700242E95 /* Assets.xcassets */,
-				48D85924201BF7F900D556D2 /* Localizable.strings */,
-				48F5BDE61F1CAE9000242E95 /* CustomTableViewCell.swift */,
-				48F5BDE71F1CAE9000242E95 /* CustomTableViewCell.xib */,
-				480DEA3E1FF4C5B300939AE1 /* Downloader.swift */,
-				4853D8601F23115C008FA029 /* CustomTableViewCell2.swift */,
-				4853D85E1F23114A008FA029 /* CustomTableViewCell2.xib */,
-				48F5BDF11F1CB9A900242E95 /* CustomUITableView.swift */,
 				48F5BDE01F1C917700242E95 /* Info.plist */,
-				48F5BDDD1F1C917700242E95 /* LaunchScreen.storyboard */,
-				48F5BDD81F1C917700242E95 /* Main.storyboard */,
-				480701101F8F68F7007DA534 /* PalabraCollectionViewCell.swift */,
-				48D73E651FBECCD3006D5EEE /* Extensiones.swift */,
-				48F5BDF51F1D684300242E95 /* MateriaObj.swift */,
-				48F5BDF31F1D583700242E95 /* MateriasDisponiblesViewController.swift */,
-				48F5BDD61F1C917700242E95 /* MisMateriasViewController.swift */,
-				48D8592C201C254700D556D2 /* MateriasDisponiblesEmptyView.xib */,
-				48D85931201C255D00D556D2 /* MisMateriasEmptyView.xib */,
-				B77A801B1F29164200B73C43 /* UnidadStruct.swift */,
-				48F5BDEF1F1CB1A500242E95 /* Utils.swift */,
+				48472D42201DA6890001B297 /* Otros */,
+				48472D41201DA63D0001B297 /* Controladores */,
+				48472D40201DA5FB0001B297 /* Vistas */,
 			);
 			path = ReforzaTecv1;
 			sourceTree = "<group>";
@@ -272,10 +269,10 @@
 				48EF394F1FB9979D000325AB /* PreguntaOMTVC.xib in Resources */,
 				48D8592F201C255D00D556D2 /* MisMateriasEmptyView.xib in Resources */,
 				48D8592A201C254700D556D2 /* MateriasDisponiblesEmptyView.xib in Resources */,
-				4853D85F1F23114A008FA029 /* CustomTableViewCell2.xib in Resources */,
+				4853D85F1F23114A008FA029 /* MateriaDescargableCell.xib in Resources */,
 				48D85934201C513F00D556D2 /* PreguntaATVC.xib in Resources */,
 				48D73E641FBECC56006D5EEE /* OpcionTableCell.xib in Resources */,
-				48F5BDE91F1CAE9000242E95 /* CustomTableViewCell.xib in Resources */,
+				48F5BDE91F1CAE9000242E95 /* MateriaCell.xib in Resources */,
 				48F5BDDA1F1C917700242E95 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,10 +288,9 @@
 				489096681FAC68DA00C8AF3E /* EjercicioVozVC.swift in Sources */,
 				48EF39511FB99F23000325AB /* EvaluacionTVC.swift in Sources */,
 				483241FE1F30314B00E360CC /* EjercicioOpMulVC.swift in Sources */,
-				48F5BDF21F1CB9A900242E95 /* CustomUITableView.swift in Sources */,
 				48F5BDF41F1D583700242E95 /* MateriasDisponiblesViewController.swift in Sources */,
 				B77A801E1F29191E00B73C43 /* ExpandibleHeaderView.swift in Sources */,
-				48F5BDE81F1CAE9000242E95 /* CustomTableViewCell.swift in Sources */,
+				48F5BDE81F1CAE9000242E95 /* MateriaCell.swift in Sources */,
 				480DEA3F1FF4C5B300939AE1 /* Downloader.swift in Sources */,
 				480701111F8F68F7007DA534 /* PalabraCollectionViewCell.swift in Sources */,
 				48D73E661FBECCD3006D5EEE /* Extensiones.swift in Sources */,
@@ -309,7 +305,7 @@
 				489096661FAC641800C8AF3E /* EjercicioEscrituraVC.swift in Sources */,
 				4807010D1F899C03007DA534 /* EjercicioOrdenarVC.swift in Sources */,
 				48F5BDF61F1D684300242E95 /* MateriaObj.swift in Sources */,
-				4853D8611F23115C008FA029 /* CustomTableViewCell2.swift in Sources */,
+				4853D8611F23115C008FA029 /* MateriaDescargableCell.swift in Sources */,
 				48F5BDD51F1C917700242E95 /* AppDelegate.swift in Sources */,
 				48F5BDF01F1CB1A500242E95 /* Utils.swift in Sources */,
 			);
@@ -499,7 +495,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = itsu.ReforzaTecv1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "ReforzaTecv1/Evaluacion/ReforzaTecv1-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "ReforzaTecv1/Otros/ReforzaTecv1-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -521,7 +517,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = itsu.ReforzaTecv1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "ReforzaTecv1/Evaluacion/ReforzaTecv1-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "ReforzaTecv1/Otros/ReforzaTecv1-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 			};

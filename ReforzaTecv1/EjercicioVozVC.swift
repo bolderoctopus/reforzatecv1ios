@@ -64,7 +64,7 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
         AlturaDeImagenConstraint.constant = 0
         CalificacionImagenView.alpha = 0
         
-        // TODO: Modificar el alpha del boton para que cuando este dsabilitado se vea diferente
+
         BotonMicrofono.isEnabled = false
         
         speechRecognizer?.delegate = self
@@ -93,7 +93,11 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
         self.title = ejercicioString + numero
         
     }
-    
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        revisarConexion()
+    }
     @objc func accionDelBotonRevisar(sender: UIButton) {
         if yaFueRevisado{
             siguienteEjercicio()
@@ -209,12 +213,7 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
         }
         solicitudDeReconocimiento = SFSpeechAudioBufferRecognitionRequest()
         let nodoEntrada = motorDeAudio.inputNode
-//        guard let inputNode = motorDeAudio.inputNode else {
-//            fatalError("Audio engine has no input node")
-//        }
-//        guard let solicitudDeReconocimiento = solicitudDeReconocimiento else {
-//            print("Error, no se pudo crear una solicitud de roconocimiento")
-//        }
+
         
         solicitudDeReconocimiento!.shouldReportPartialResults = true
         tareaDeReconocimiento = speechRecognizer?.recognitionTask(with: solicitudDeReconocimiento!, resultHandler: { (resultado, error) in
@@ -266,6 +265,21 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
         }
         else {
             BotonMicrofono.isEnabled = false
+        }
+    }
+    
+    func revisarConexion() {
+        if (currentReachabilityStatus == .notReachable) {
+            print("No hay conexion a internet")
+            let titulo = NSLocalizedString("No Internet connection detected", comment: "")
+            let mensaje = NSLocalizedString("Voice exercises requiere an Internet connection.", comment: "")
+            
+            let alerta = UIAlertController.init(title: titulo, message: mensaje, preferredStyle: .alert)
+            alerta.addAction(UIAlertAction.init(title: NSLocalizedString("Dismiss", comment:""), style: .default, handler: nil))
+            MuteMicrofono(self)
+            self.present(alerta, animated: true)
+        }else{
+            print("si hay conexion a internet")
         }
     }
 }

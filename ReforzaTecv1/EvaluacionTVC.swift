@@ -277,7 +277,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
         var fallos = 0
         var resultados: [String: String] = [:]
         for i in 0...(dataSource.count - 1){
-            var id: String = String(dataSource[i].id)
+            let id: String = String(dataSource[i].id)
             var r: String
             if (dataSource[i].esCorrecto()){
                 aciertos += 1

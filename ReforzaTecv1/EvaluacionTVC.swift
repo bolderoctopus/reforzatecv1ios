@@ -301,7 +301,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
         do{
             let json = try JSONSerialization.data(withJSONObject: resultados, options: [] )
             //print(String(data:json, encoding: .utf8)!)
-            let url = URL (string: (MateriaObj.CALIFICACIONES + String(PreguntasEvaluacion.first!.unidad!.idUni)) )!
+            let url = URL (string: (MateriaStruct.CALIFICACIONES + String(PreguntasEvaluacion.first!.unidad!.idUni)) )!
             var request = URLRequest(url: url)
             request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             request.httpBody = ("resultados=" + String(data:json, encoding: .utf8)!).data(using: .utf8)!

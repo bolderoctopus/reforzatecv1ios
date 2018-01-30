@@ -30,6 +30,11 @@
 "seconds" = "seconds";
 "minutes" = "minutes";
 "version" = "version";
+"There's a newer version of: " = "There's a newer version of: ";
+"Would you like to download it? It will replace the current version" = "Would you like to download it?\nIt will replace the current version.";
+"Yes" = "Yes";
+"No" = "No";
+"and" = "and";
 
 
 

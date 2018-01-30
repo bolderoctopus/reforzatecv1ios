@@ -26,13 +26,17 @@ class MateriaCell: UITableViewCell {
     }
     @IBOutlet weak var nombreLabel: UILabel!
     @IBOutlet weak var openButton: UIButton!
-   
-    
     @IBOutlet weak var VersionLabel: UILabel!
     @IBOutlet weak var descripcionTextView: UITextView!
     @IBOutlet weak var removeButton: UIButton!
     @IBOutlet weak var heighConts: NSLayoutConstraint!
-    //    @IBOutlet weak var alturaConstrain: NSLayoutConstraint!
+    
+    var indicadorDeDescarga: UIActivityIndicatorView!
+    var estaDescargando: Bool? {
+        didSet{
+            indicarDescarga(estaDescargando)
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -68,6 +72,28 @@ class MateriaCell: UITableViewCell {
             c()
             
         })
+    }
+    
+    func indicarDescarga(_ estamosDescargando: Bool?) {
+        if let cierto = estaDescargando{
+            if cierto{
+                indicadorDeDescarga = UIActivityIndicatorView.init(frame: openButton.frame)
+                indicadorDeDescarga.alpha  = 0
+                indicadorDeDescarga.color = UIColor.black
+                indicadorDeDescarga.startAnimating()
+                titleView.addSubview(indicadorDeDescarga)
+                UIView.animate(withDuration: 0.4, animations: {
+                    self.openButton.alpha = 0
+                    self.indicadorDeDescarga.alpha = 1
+                })
+            }else{
+                UIView.animate(withDuration: 0.4, animations: {
+                    self.openButton.alpha = 1
+                    self.indicadorDeDescarga.alpha = 0
+                })
+                titleView.willRemoveSubview(indicadorDeDescarga)
+            }
+        }
     }
     
     

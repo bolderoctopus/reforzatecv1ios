@@ -14,9 +14,10 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     let color : UIColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     @IBOutlet weak var tableView: UITableView!
-    var materiasDescargadas : [Materia] = []
+    var MateriasCoreData : [Materia] = []
     var lastCell : MateriaCell?//   = CustomTableViewCell ()//guarda la celda que esta expandida?
     var tagCeldaExpandida = -1//identifica a la celda abierta
+    var controlActualizar: UIRefreshControl!
     
     //lo puse en view did appear por que en view did load no funcionaba?
     override func viewWillAppear(_ animated: Bool) {
@@ -43,10 +44,15 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         self.navigationItem.leftBarButtonItem = barButton
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        buscarNuevasVersiones()
+    }
  
     func recuperarData(){
         do {
-            materiasDescargadas = (try context.fetch(Materia.fetchRequest())) as! [Materia]
+            MateriasCoreData = (try context.fetch(Materia.fetchRequest())) as! [Materia]
         } catch {
             print("Error al recuperar las materias")
         }
@@ -72,10 +78,15 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.dataSource = self
         tableView.allowsSelection = true
         tableView.separatorStyle = .none
+        
+        controlActualizar = UIRefreshControl()
+        controlActualizar.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        controlActualizar.tintColor = UIColor.black
+        tableView.addSubview(controlActualizar)
     }
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return materiasDescargadas.count
+        return MateriasCoreData.count
     }
 
     
@@ -83,7 +94,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "MateriaCell", for: indexPath) as! MateriaCell
         
         //if !cell.cellExists {
-            let m = materiasDescargadas[indexPath.row]
+            let m = MateriasCoreData[indexPath.row]
             cell.nombreLabel.text = m.nombre
             cell.descripcionTextView.text = m.descripcion
             cell.cellExists = true
@@ -109,7 +120,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if(editingStyle == .delete) {            
-            materiasDescargadas.remove(at: indexPath.row)//tal vez esto deberia estar en eliminarMateria(celda)
+            MateriasCoreData.remove(at: indexPath.row)//tal vez esto deberia estar en eliminarMateria(celda)
             tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
         }
     }
@@ -136,7 +147,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     //MARK:- Cosas extra
 
     func mostrarEmptyView() {
-        if materiasDescargadas.isEmpty{
+        if MateriasCoreData.isEmpty{
             let emptyView = (UINib(nibName: "MisMateriasEmptyView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView)
             emptyView.isHidden = false
             tableView.backgroundView = emptyView
@@ -206,7 +217,7 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
             if let comentario = comentariosAlert.textFields?.first!.text{
                 print("Enviando: \(comentario)")
                 let comentarioCodificado = comentario.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                let url = URL(string: MateriaObj.COMENTARIOS + comentarioCodificado!)
+                let url = URL(string: MateriaStruct.COMENTARIOS + comentarioCodificado!)
                 print(url!.absoluteString)
                 let session = URLSession.shared
                 let task = session.dataTask(with: url!)
@@ -228,8 +239,10 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
     }
     func mostrarCreditos() {
         var mensaje = String("\n\u{2022}")
-        mensaje.append(NSLocalizedString("Icons designed by:", comment: ""))
-        mensaje.append("Freepik, SmashIcons, Iconnice\n")
+        mensaje.append(NSLocalizedString("Icons designed by: ", comment: ""))
+        mensaje.append("Freepik, SmashIcons ")
+        mensaje.append(NSLocalizedString("and", comment: ""))
+        mensaje.append(" Iconnice\n")
         mensaje.append(NSLocalizedString("from ", comment: ""))
         mensaje.append("www.flaticon.com \n\n")
         mensaje.append("\u{2022}DLRadioButton ")
@@ -256,30 +269,12 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         let alerta = UIAlertController(title: confirmationString + celda.nombreLabel.text! + "?", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
         alerta.addAction(UIAlertAction(title: deleteString, style: UIAlertActionStyle.destructive, handler: {_ in
             let indexPath = self.tableView.indexPath(for: celda)!
-            let coreData = celda.referenciaCD!
-        
-            if let NSSetUnidades = coreData.unidades{
-                for ns in NSSetUnidades{
-                    let uni = ns as! Unidad
-                    do{
-                        if let teoria = uni.teoria{
-                            try FileManager().removeItem(at: MateriaObj.URL_DIRECTORIO_DOCUMENTOS().appendingPathComponent(teoria))
-                            print("archivo borrado \(teoria)")
-                        }
-                        if let ejemplo = uni.ejemplo{
-                            try FileManager().removeItem(at: MateriaObj.URL_DIRECTORIO_DOCUMENTOS().appendingPathComponent(ejemplo))
-                            print("archivo borrado \(ejemplo)")
-                        }
-                    }catch (let ex) {
-                       print("error al borrar los archivos \(ex.localizedDescription)")
-                    }
-                }
-            }
+            let mCD = celda.referenciaCD!
+            self.borrarDeCoreData(materia: mCD)
+            
             self.expandirCelda(numero: indexPath.row)
             self.tableView(self.tableView, commit: .delete, forRowAt: indexPath)
             
-            self.context.delete(coreData)
-            (UIApplication.shared.delegate as! AppDelegate).saveContext()
             self.mostrarEmptyView()
             //self.lastCell = nil
         }))
@@ -288,6 +283,106 @@ class MisMateriasViewController: UIViewController, UITableViewDelegate, UITableV
         }))
         self.present(alerta, animated: true, completion: nil)
         
+    }
+    
+    func borrarDeCoreData(materia: Materia) {
+        borrarArchivos(de: materia)
+        self.context.delete(materia)
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+    }
+    
+    func borrarArchivos(de materia: Materia) {
+        if let NSSetUnidades = materia.unidades{
+            for ns in NSSetUnidades{
+                let uni = ns as! Unidad
+                do{
+                    if let teoria = uni.teoria{
+                        try FileManager().removeItem(at: MateriaStruct.URL_DIRECTORIO_DOCUMENTOS().appendingPathComponent(teoria))
+                        print("archivo borrado \(teoria)")
+                    }
+                    if let ejemplo = uni.ejemplo{
+                        try FileManager().removeItem(at: MateriaStruct.URL_DIRECTORIO_DOCUMENTOS().appendingPathComponent(ejemplo))
+                        print("archivo borrado \(ejemplo)")
+                    }
+                }catch (let ex) {
+                    print("error al borrar los archivos \(ex.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    func buscarNuevasVersiones() {
+        Downloader.descargarListaMaterias(alFinalizar: { listaDescargada in
+            for materiaCD in self.MateriasCoreData{
+                if let materiaDescargada = listaDescargada[materiaCD.idMateria]{
+                    if (materiaCD.version < materiaDescargada.version) && (materiaCD.ignorarVersion != materiaDescargada.version){
+                        
+                        self.confirmarActualizacion(para: materiaCD, con: materiaDescargada)
+                    }
+                }
+            }
+        })
+    }
+    
+    func confirmarActualizacion(para materia: Materia, con materiaNueva: MateriaStruct) {
+        let titulo = NSLocalizedString("There's a newer version of: ", comment: "") + materia.nombre!
+        let mensaje = NSLocalizedString("Would you like to download it? It will replace the current version", comment: "")
+        
+        let alert = UIAlertController.init(title: titulo, message: mensaje, preferredStyle: .alert)
+        alert.addAction(UIAlertAction.init(title: NSLocalizedString("Yes", comment: ""), style: .default, handler: {_ in
+            self.actualizar(materia: materia, nueva: materiaNueva)
+        }))
+        alert.addAction(UIAlertAction.init(title: NSLocalizedString("No", comment: ""), style: .cancel, handler: {_ in
+            materia.ignorarVersion = materiaNueva.version
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        }))
+        self.present(alert, animated: true, completion: {})
+    }
+    
+    @objc func refresh(_ controlActualizar: UIRefreshControl) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            self.buscarNuevasVersiones()
+            self.controlActualizar.endRefreshing()
+        })
+    }
+    
+    
+    func actualizar(materia: Materia, nueva: MateriaStruct) {
+        var celda: MateriaCell?
+        var indice: Int?
+        for i in 0..<tableView.numberOfRows(inSection: 0){
+            celda =  (tableView.cellForRow(at: IndexPath(row: i, section: 0)) as! MateriaCell)
+            if celda?.referenciaCD?.idMateria == materia.idMateria{
+                indice = i
+                break
+            }
+        }
+        
+        celda?.estaDescargando = true
+        borrarArchivos(de: materia)
+        
+        materia.nombre = nueva.mNombre
+        materia.descripcion = nueva.mDescripcion
+        materia.version = nueva.version
+        materia.unidades  = nil
+        
+        if lastCell == celda{
+            expandirCelda(numero: indice!)
+        }
+        
+        celda?.nombreLabel.text = nueva.mNombre
+        celda?.descripcionTextView.text = nueva.mDescripcion
+        celda?.detailsView.backgroundColor = Utils.colorHash(nueva.mNombre)
+        celda?.titleView.backgroundColor = celda!.detailsView.backgroundColor
+        celda?.referenciaCD = materia
+        celda?.VersionLabel.text = NSLocalizedString("version", comment: "") + ": \(nueva.version)"
+        
+        Downloader.actualizar(materia: materia, con: context, alFinalizar: {
+            DispatchQueue.main.async {
+                (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                celda?.estaDescargando = false
+            }
+        })
     }
 
 }

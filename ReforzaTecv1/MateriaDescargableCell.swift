@@ -20,7 +20,7 @@ protocol BtnMateriaDelegate : class {
 //Deveria renombrar esta clase a algo mejor,
 class MateriaDescargableCell: UITableViewCell {
         //deberia lelvar un objeto tipo Materia?
-    var objMateria : MateriaObj?//borrar? no, representacion de la materia antes de ser descargada
+    var objMateria : MateriaStruct?//borrar? no, representacion de la materia antes de ser descargada
     weak var delegate :BtnMateriaDelegate?
     
     var cellExists : Bool = false
@@ -42,6 +42,11 @@ class MateriaDescargableCell: UITableViewCell {
     @IBOutlet weak var VersionLabel: UILabel!
     
     var indicadorDeDescarga: UIActivityIndicatorView!
+    var estamosDescargando: Bool!{
+        didSet{
+            indicarDescarga(estamosDescargando)
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,12 +54,20 @@ class MateriaDescargableCell: UITableViewCell {
     }
  
     @IBAction func descargar(_ sender: Any) {
-
-//        indicarDescarga()
         delegate?.btnDescargarDelegate(self)
     }
     
-    func indicarDescarga() {
+    func indicarDescarga(_ estamosDescargando: Bool) {
+        if estamosDescargando == false{
+            titleView.willRemoveSubview(indicadorDeDescarga)
+            
+            UIView.animate(withDuration: 0.4, animations: {
+                self.downButton.alpha = 1
+                self.indicadorDeDescarga.alpha = 0
+            })
+            return
+        }
+        
         if(indicadorDeDescarga == nil){
             indicadorDeDescarga = UIActivityIndicatorView.init(frame: downButton.frame)
             indicadorDeDescarga.alpha  = 0

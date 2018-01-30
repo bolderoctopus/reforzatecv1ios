@@ -40,8 +40,7 @@ extension Sequence {
 
 
 //Permite ejecutar cosas en segundo plano
-extension DispatchQueue {
-    
+extension DispatchQueue {    
     static func background(delay: Double = 0.0, background: (()->Void)? = nil, completion: (() -> Void)? = nil) {
         DispatchQueue.global(qos: .background).async {
             background?()

@@ -10,8 +10,7 @@
 import Foundation
 import UIKit.UIColor
 
-// cambiar a una struct
-class MateriaObj: NSObject {
+struct MateriaStruct{
     
     static let HOST: String = "http://172.16.107.1/"
     static let  direccion : String  = HOST + "reforzatec/reforzatec.php?Actividad=1"
@@ -40,7 +39,7 @@ class MateriaObj: NSObject {
     }
     
 
-    class func URL_DIRECTORIO_DOCUMENTOS() ->URL {
+    static func URL_DIRECTORIO_DOCUMENTOS() ->URL {
          return FileManager().urls(for: .cachesDirectory, in: .userDomainMask).first!
     }
     

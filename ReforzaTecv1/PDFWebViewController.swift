@@ -35,7 +35,7 @@ class PDFWebViewController: UIViewController, WKUIDelegate {
 
     func cargarDoc() {
         
-         let pdfURL = MateriaObj.URL_DIRECTORIO_DOCUMENTOS().appendingPathComponent(archivoPorAbrir)
+         let pdfURL = MateriaStruct.URL_DIRECTORIO_DOCUMENTOS().appendingPathComponent(archivoPorAbrir)
         //if let pdfURL = Bundle.main.url(forResource: "resume", withExtension: "pdf", subdirectory: nil, localization: nil)  {
             do {
                 let data = try Data(contentsOf: pdfURL)

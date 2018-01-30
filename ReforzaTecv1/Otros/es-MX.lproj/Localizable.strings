@@ -30,4 +30,9 @@
 " by: " = " por: ";
 "seconds" = "segundos";
 "minutes" = "minutos";
-"version" = "versió n";
+"version" = "versión";
+"There's a newer version of: " = "Hay una nuevo versión de: ";
+"Would you like to download it? It will replace the current version" = "¿Te gustaría descargarla?\nReemplazará la versión actual.";
+"Yes" = "Sí";
+"No" = "No";
+"and" = "y";

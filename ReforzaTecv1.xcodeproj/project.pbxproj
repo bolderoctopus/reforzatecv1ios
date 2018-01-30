@@ -130,8 +130,8 @@
 				48F5BDF51F1D684300242E95 /* MateriaStruct.swift */,
 				4868E7061F70D0FE00135BEE /* Model.xcdatamodeld */,
 				48557FDB1FBED3BE00CD1A2B /* ReforzaTecv1-Bridging-Header.h */,
-				48F5BDEF1F1CB1A500242E95 /* Utils.swift */,
 				B77A801B1F29164200B73C43 /* UnidadStruct.swift */,
+				48F5BDEF1F1CB1A500242E95 /* Utils.swift */,
 			);
 			path = Otros;
 			sourceTree = "<group>";

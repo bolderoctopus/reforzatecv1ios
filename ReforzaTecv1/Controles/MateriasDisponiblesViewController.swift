@@ -78,7 +78,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         cell.DescripcionTextView.text = m.Descripcion
         cell.cellExists = true
         cell.DetallesView.backgroundColor = Utils.colorHash(m.Nombre)
-        cell.TituloView.backgroundColor = Utils.colorHash(m.Nombre)
+        cell.TituloView.backgroundColor = cell.DetallesView.backgroundColor
         cell.objMateria = m
         cell.delegate = self
         cell.VersionLabel.text = NSLocalizedString("version", comment: "") + ": \(m.Version)"

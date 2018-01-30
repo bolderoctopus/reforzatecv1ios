@@ -50,18 +50,22 @@ class Downloader {
                 var ids = [String] ()
                 var descripciones = [String] ()
                 var versiones = [String]()
-                do {
-                    if NSString(data: data!, encoding: String.Encoding.utf8.rawValue) != nil {
-                        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [AnyObject]
-                        nombres = json.map { ($0 as! [String:AnyObject]) ["nombre"] as! String }
-                        ids = json.map { ($0 as! [String:AnyObject]) ["idMaterias"] as! String }
-                        descripciones = json.map { ($0 as! [String:AnyObject]) ["descripcion"] as! String }
-                        versiones = json.map{($0 as! [String:AnyObject]) ["version"] as! String}
+                
+                if NSString(data: data!, encoding: String.Encoding.utf8.rawValue) != nil {
+                    let arregloRaiz = try? JSONSerialization.jsonObject(with: data!, options: [])
+                    if let materiasJson = arregloRaiz as? [Any]{
+                        for materiaJson in materiasJson{
+                            if let m = materiaJson as? [String: Any]{
+                                nombres.append(m["nombre"] as? String ?? "")
+                                ids.append(m["idMaterias"] as? String ?? "")
+                                descripciones.append(m["descripcion"] as? String ?? "")
+                                versiones.append(m["version"] as? String ?? "")
+                            }
+                        }
                     }
-                } catch {
-                    print(error)
+                    	
                 }
-        
+                
                 guard nombres.count == ids.count && ids.count == descripciones.count else {
                     return
                 }

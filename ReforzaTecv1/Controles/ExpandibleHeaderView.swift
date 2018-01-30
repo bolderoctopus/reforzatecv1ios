@@ -8,12 +8,15 @@
 
 import UIKit
 
+/**
+ Permite que las unidades mostradas en ContenidoMateria se expandan o contraigan al tocarlas.
+ */
 protocol ExpandibleHeaderRowDelegate {
     func toggleSelection(header: ExpandibleHeaderView, section: Int)
-    
 }
 
 class ExpandibleHeaderView: UITableViewHeaderFooterView {
+    
     var delegate : ExpandibleHeaderRowDelegate?
     var section: Int!
     
@@ -36,7 +39,6 @@ class ExpandibleHeaderView: UITableViewHeaderFooterView {
         self.textLabel?.text = title
         self.section = section
         self.delegate = delegate
-        
     }
     
     override func layoutSubviews() {
@@ -44,13 +46,5 @@ class ExpandibleHeaderView: UITableViewHeaderFooterView {
         self.textLabel?.textColor = UIColor.white
         self.contentView.backgroundColor = UIColor.darkGray
     }
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
 
 }

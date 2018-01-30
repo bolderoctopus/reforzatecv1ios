@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4807010D1F899C03007DA534 /* EjercicioOrdenarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4807010C1F899C03007DA534 /* EjercicioOrdenarVC.swift */; };
-		480701111F8F68F7007DA534 /* PalabraCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480701101F8F68F7007DA534 /* PalabraCollectionViewCell.swift */; };
 		480DEA3F1FF4C5B300939AE1 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480DEA3E1FF4C5B300939AE1 /* Downloader.swift */; };
 		4818A6401F298444003BD339 /* ContenidoMateria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4818A63F1F298444003BD339 /* ContenidoMateria.swift */; };
 		4818A6421F2BB002003BD339 /* PDFWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4818A6411F2BB002003BD339 /* PDFWebViewController.swift */; };
@@ -39,14 +38,13 @@
 		48F5BDE91F1CAE9000242E95 /* MateriaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48F5BDE71F1CAE9000242E95 /* MateriaCell.xib */; };
 		48F5BDF01F1CB1A500242E95 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDEF1F1CB1A500242E95 /* Utils.swift */; };
 		48F5BDF41F1D583700242E95 /* MateriasDisponiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDF31F1D583700242E95 /* MateriasDisponiblesViewController.swift */; };
-		48F5BDF61F1D684300242E95 /* MateriaObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDF51F1D684300242E95 /* MateriaObj.swift */; };
+		48F5BDF61F1D684300242E95 /* MateriaStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F5BDF51F1D684300242E95 /* MateriaStruct.swift */; };
 		B77A801C1F29164200B73C43 /* UnidadStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A801B1F29164200B73C43 /* UnidadStruct.swift */; };
 		B77A801E1F29191E00B73C43 /* ExpandibleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A801D1F29191E00B73C43 /* ExpandibleHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4807010C1F899C03007DA534 /* EjercicioOrdenarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EjercicioOrdenarVC.swift; sourceTree = "<group>"; };
-		480701101F8F68F7007DA534 /* PalabraCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PalabraCollectionViewCell.swift; sourceTree = "<group>"; };
 		480DEA3E1FF4C5B300939AE1 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		4818A63F1F298444003BD339 /* ContenidoMateria.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContenidoMateria.swift; sourceTree = "<group>"; };
 		4818A6411F2BB002003BD339 /* PDFWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFWebViewController.swift; sourceTree = "<group>"; };
@@ -87,7 +85,7 @@
 		48F5BDE71F1CAE9000242E95 /* MateriaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MateriaCell.xib; sourceTree = "<group>"; };
 		48F5BDEF1F1CB1A500242E95 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		48F5BDF31F1D583700242E95 /* MateriasDisponiblesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriasDisponiblesViewController.swift; sourceTree = "<group>"; };
-		48F5BDF51F1D684300242E95 /* MateriaObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriaObj.swift; sourceTree = "<group>"; };
+		48F5BDF51F1D684300242E95 /* MateriaStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriaStruct.swift; sourceTree = "<group>"; };
 		B77A801B1F29164200B73C43 /* UnidadStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnidadStruct.swift; sourceTree = "<group>"; };
 		B77A801D1F29191E00B73C43 /* ExpandibleHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandibleHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,7 +117,26 @@
 			path = Vistas;
 			sourceTree = "<group>";
 		};
-		48472D41201DA63D0001B297 /* Controladores */ = {
+		48472D42201DA6890001B297 /* Otros */ = {
+			isa = PBXGroup;
+			children = (
+				48F5BDD41F1C917700242E95 /* AppDelegate.swift */,
+				48F5BDDB1F1C917700242E95 /* Assets.xcassets */,
+				48D73E651FBECCD3006D5EEE /* Extensiones.swift */,
+				48557FDC1FBED3BF00CD1A2B /* DLRadioButton.h */,
+				48557FDD1FBED3BF00CD1A2B /* DLRadioButton.m */,
+				480DEA3E1FF4C5B300939AE1 /* Downloader.swift */,
+				48D85924201BF7F900D556D2 /* Localizable.strings */,
+				48F5BDF51F1D684300242E95 /* MateriaStruct.swift */,
+				4868E7061F70D0FE00135BEE /* Model.xcdatamodeld */,
+				48557FDB1FBED3BE00CD1A2B /* ReforzaTecv1-Bridging-Header.h */,
+				48F5BDEF1F1CB1A500242E95 /* Utils.swift */,
+				B77A801B1F29164200B73C43 /* UnidadStruct.swift */,
+			);
+			path = Otros;
+			sourceTree = "<group>";
+		};
+		48472D45202043710001B297 /* Controles */ = {
 			isa = PBXGroup;
 			children = (
 				4818A63F1F298444003BD339 /* ContenidoMateria.swift */,
@@ -128,37 +145,17 @@
 				483241FD1F30314B00E360CC /* EjercicioOpMulVC.swift */,
 				4807010C1F899C03007DA534 /* EjercicioOrdenarVC.swift */,
 				489096671FAC68DA00C8AF3E /* EjercicioVozVC.swift */,
+				B77A801D1F29191E00B73C43 /* ExpandibleHeaderView.swift */,
 				4853D8601F23115C008FA029 /* MateriaDescargableCell.swift */,
 				48F5BDF31F1D583700242E95 /* MateriasDisponiblesViewController.swift */,
 				48F5BDD61F1C917700242E95 /* MisMateriasViewController.swift */,
 				48F5BDE61F1CAE9000242E95 /* MateriaCell.swift */,
 				48D73E611FBECC3D006D5EEE /* OpcionTableCell.swift */,
-				480701101F8F68F7007DA534 /* PalabraCollectionViewCell.swift */,
 				4818A6411F2BB002003BD339 /* PDFWebViewController.swift */,
 				48EF39481FB99666000325AB /* PreguntaATVC.swift */,
 				48EF394C1FB9979D000325AB /* PreguntaOMTVC.swift */,
 			);
-			name = Controladores;
-			sourceTree = "<group>";
-		};
-		48472D42201DA6890001B297 /* Otros */ = {
-			isa = PBXGroup;
-			children = (
-				48F5BDD41F1C917700242E95 /* AppDelegate.swift */,
-				48F5BDDB1F1C917700242E95 /* Assets.xcassets */,
-				B77A801D1F29191E00B73C43 /* ExpandibleHeaderView.swift */,
-				48D73E651FBECCD3006D5EEE /* Extensiones.swift */,
-				48557FDC1FBED3BF00CD1A2B /* DLRadioButton.h */,
-				48557FDD1FBED3BF00CD1A2B /* DLRadioButton.m */,
-				480DEA3E1FF4C5B300939AE1 /* Downloader.swift */,
-				48D85924201BF7F900D556D2 /* Localizable.strings */,
-				48F5BDF51F1D684300242E95 /* MateriaObj.swift */,
-				4868E7061F70D0FE00135BEE /* Model.xcdatamodeld */,
-				48557FDB1FBED3BE00CD1A2B /* ReforzaTecv1-Bridging-Header.h */,
-				48F5BDEF1F1CB1A500242E95 /* Utils.swift */,
-				B77A801B1F29164200B73C43 /* UnidadStruct.swift */,
-			);
-			path = Otros;
+			path = Controles;
 			sourceTree = "<group>";
 		};
 		48D85938201C538300D556D2 /* Frameworks */ = {
@@ -189,8 +186,8 @@
 			isa = PBXGroup;
 			children = (
 				48F5BDE01F1C917700242E95 /* Info.plist */,
+				48472D45202043710001B297 /* Controles */,
 				48472D42201DA6890001B297 /* Otros */,
-				48472D41201DA63D0001B297 /* Controladores */,
 				48472D40201DA5FB0001B297 /* Vistas */,
 			);
 			path = ReforzaTecv1;
@@ -292,7 +289,6 @@
 				B77A801E1F29191E00B73C43 /* ExpandibleHeaderView.swift in Sources */,
 				48F5BDE81F1CAE9000242E95 /* MateriaCell.swift in Sources */,
 				480DEA3F1FF4C5B300939AE1 /* Downloader.swift in Sources */,
-				480701111F8F68F7007DA534 /* PalabraCollectionViewCell.swift in Sources */,
 				48D73E661FBECCD3006D5EEE /* Extensiones.swift in Sources */,
 				4818A6421F2BB002003BD339 /* PDFWebViewController.swift in Sources */,
 				48F5BDD71F1C917700242E95 /* MisMateriasViewController.swift in Sources */,
@@ -304,7 +300,7 @@
 				4868E7081F70D0FE00135BEE /* Model.xcdatamodeld in Sources */,
 				489096661FAC641800C8AF3E /* EjercicioEscrituraVC.swift in Sources */,
 				4807010D1F899C03007DA534 /* EjercicioOrdenarVC.swift in Sources */,
-				48F5BDF61F1D684300242E95 /* MateriaObj.swift in Sources */,
+				48F5BDF61F1D684300242E95 /* MateriaStruct.swift in Sources */,
 				4853D8611F23115C008FA029 /* MateriaDescargableCell.swift in Sources */,
 				48F5BDD51F1C917700242E95 /* AppDelegate.swift in Sources */,
 				48F5BDF01F1CB1A500242E95 /* Utils.swift in Sources */,

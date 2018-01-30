@@ -261,12 +261,12 @@
                     <connections>
                         <outlet property="AlturaTablaConstraint" destination="y16-5c-Gix" id="Jhv-tL-C9J"/>
                         <outlet property="AlturaVCConstraint" destination="NRT-Ch-9wJ" id="oJ1-Ue-MsL"/>
-                        <outlet property="BotonSiguiente" destination="9Og-t4-7hl" id="gQI-KI-oCa"/>
                         <outlet property="EspacioBotonTablaConstraint" destination="0Tq-Ef-xc5" id="HD7-YJ-X85"/>
                         <outlet property="EspacioBottomBotonConstraint" destination="IbQ-wE-Y3a" id="ntD-JD-AZd"/>
-                        <outlet property="EspacioPreguntaTablaCotnstraint" destination="1Gk-Nt-aGJ" id="dAA-o0-ffY"/>
+                        <outlet property="EspacioPreguntaTablaContstraint" destination="1Gk-Nt-aGJ" id="dAA-o0-ffY"/>
+                        <outlet property="PreguntaTextView" destination="u1v-VG-IEB" id="kZU-xd-Gue"/>
                         <outlet property="ScrollView" destination="5GH-NA-LyY" id="oBI-P6-ZYK"/>
-                        <outlet property="preguntaTextView" destination="u1v-VG-IEB" id="kZU-xd-Gue"/>
+                        <outlet property="SiguienteButton" destination="9Og-t4-7hl" id="gQI-KI-oCa"/>
                         <outlet property="tableView" destination="bcb-Ev-vpJ" id="XUr-wL-Kex"/>
                     </connections>
                 </viewController>
@@ -367,13 +367,13 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="AciertosL" destination="L7j-Wp-AID" id="jox-Jt-0qQ"/>
-                        <outlet property="AlturaC" destination="bnk-Lc-p14" id="Aba-QF-hVX"/>
-                        <outlet property="ErroresL" destination="OQy-4Z-dyy" id="f3F-qH-tDz"/>
-                        <outlet property="ResultadosSV" destination="YGg-cy-NsJ" id="m7I-gd-PFN"/>
-                        <outlet property="ResultadosV" destination="gbx-th-hUW" id="4Jp-ad-qRI"/>
-                        <outlet property="RevisarB" destination="r2t-nd-09U" id="163-Z5-zmY"/>
-                        <outlet property="TiempoL" destination="spm-W1-7YH" id="TdG-gS-rpp"/>
+                        <outlet property="AciertosLabel" destination="L7j-Wp-AID" id="jox-Jt-0qQ"/>
+                        <outlet property="AlturaConstraint" destination="bnk-Lc-p14" id="Aba-QF-hVX"/>
+                        <outlet property="ErroresLabel" destination="OQy-4Z-dyy" id="f3F-qH-tDz"/>
+                        <outlet property="ResultadosStackView" destination="YGg-cy-NsJ" id="m7I-gd-PFN"/>
+                        <outlet property="ResultadosView" destination="gbx-th-hUW" id="4Jp-ad-qRI"/>
+                        <outlet property="RevisarButton" destination="r2t-nd-09U" id="163-Z5-zmY"/>
+                        <outlet property="TiempoLabel" destination="spm-W1-7YH" id="TdG-gS-rpp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="83V-Sx-fTi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -513,13 +513,13 @@
                         <outlet property="AlturaCollectionViewConstraint" destination="bRK-tI-8d8" id="zbw-rw-yhy"/>
                         <outlet property="AlturaDeImagenConstraint" destination="K9i-aj-CBr" id="0te-bC-Dwd"/>
                         <outlet property="AlturaViewControllerConstraint" destination="b1o-gf-o3K" id="FTn-H0-002"/>
-                        <outlet property="BotonRevisar" destination="QM5-xU-LND" id="vOL-hx-EJH"/>
                         <outlet property="CalificacionImageView" destination="f8N-gD-PoE" id="7Pf-qV-0OG"/>
                         <outlet property="EspacioBotonCollectionConstraint" destination="djh-Kc-96A" id="3Ni-tR-dab"/>
                         <outlet property="EspacioBotonFondoCosntraint" destination="Lx6-Mo-cnn" id="MKh-DF-g38"/>
                         <outlet property="EspacioCollectionImagenConstraint" destination="nVy-ZA-9kp" id="eAB-br-PyN"/>
+                        <outlet property="PreguntaTextView" destination="jT9-1D-5KP" id="BAc-v1-d5V"/>
+                        <outlet property="RevisarButton" destination="QM5-xU-LND" id="vOL-hx-EJH"/>
                         <outlet property="collectionView" destination="naw-eQ-cI5" id="jLZ-Rr-Klc"/>
-                        <outlet property="preguntaTextView" destination="jT9-1D-5KP" id="BAc-v1-d5V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="na6-T7-heI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -599,10 +599,10 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="AlturaDeImagenConstraint" destination="dC2-uZ-5pD" id="GxH-a5-L00"/>
-                        <outlet property="BotonRevisar" destination="uO9-bg-KRM" id="E4L-9B-Qp1"/>
                         <outlet property="CalificacionImagenView" destination="OFp-pG-Uzs" id="zlT-63-Pfj"/>
-                        <outlet property="EntradaField" destination="Glf-fm-X8B" id="neY-WH-90b"/>
-                        <outlet property="preguntaTextView" destination="peh-9t-atE" id="Z8o-HB-M95"/>
+                        <outlet property="EntradaTextField" destination="Glf-fm-X8B" id="neY-WH-90b"/>
+                        <outlet property="PreguntaTextView" destination="peh-9t-atE" id="Z8o-HB-M95"/>
+                        <outlet property="RevisarButton" destination="uO9-bg-KRM" id="E4L-9B-Qp1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ud2-1H-5ww" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -702,13 +702,13 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="AlturaDeImagenConstraint" destination="F7M-cb-s3t" id="Zsj-BM-gbA"/>
-                        <outlet property="BotonMicrofono" destination="nrD-Qe-sb5" id="qVK-XU-Xay"/>
-                        <outlet property="BotonMicrofonoMute" destination="5UQ-iz-kmz" id="T4q-FK-LfK"/>
-                        <outlet property="BotonRevisar" destination="AsH-vA-Bu0" id="c5o-Cw-VHF"/>
                         <outlet property="CalificacionImagenView" destination="Vnd-8P-AS5" id="Dkk-GB-LGV"/>
-                        <outlet property="EntradaField" destination="cUl-E3-a8m" id="Q0d-CV-hpe"/>
+                        <outlet property="EntradaTextField" destination="cUl-E3-a8m" id="Q0d-CV-hpe"/>
                         <outlet property="IndicadorDeActividad" destination="7qs-Yg-dck" id="KeE-I0-rCw"/>
+                        <outlet property="MicrofonoButton" destination="nrD-Qe-sb5" id="qVK-XU-Xay"/>
+                        <outlet property="MicrofonoMuteButton" destination="5UQ-iz-kmz" id="T4q-FK-LfK"/>
                         <outlet property="PretuntaTextView" destination="dyQ-6z-1Iy" id="as6-wC-PQE"/>
+                        <outlet property="RevisarButton" destination="AsH-vA-Bu0" id="c5o-Cw-VHF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0fu-tK-VEt" userLabel="First Responder" sceneMemberID="firstResponder"/>

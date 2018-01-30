@@ -8,9 +8,10 @@
 
 import UIKit
 
-
 class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+    /**
+     Representa un renglon en la pantalla, al mismo tiempo tambien la sección donde están las opciones, tal sección siempre es la última.
+     */
     struct Fila{
         static let EspacioMinimoEntreCeldas = CGFloat(5)
         static var LargoMax: CGFloat?
@@ -38,8 +39,8 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
 
-    @IBOutlet weak var preguntaTextView: UITextView!
-    @IBOutlet weak var BotonRevisar: UIButton!
+    @IBOutlet weak var PreguntaTextView: UITextView!
+    @IBOutlet weak var RevisarButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var CalificacionImageView: UIImageView!
     
@@ -51,19 +52,21 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
 
     @IBOutlet weak var EspacioBotonCollectionConstraint: NSLayoutConstraint!
     @IBOutlet weak var EspacioCollectionImagenConstraint: NSLayoutConstraint!
-    var Ejercicios: [Ejercicio]!
-    var EjercicioActual: Ejercicio!    
-    var IndiceSeccionDeOpciones: Int!
-    var UltimaFilaUsada: Int = 0 {
+    
+    var ejercicios: [Ejercicio]!
+    var ejercicioActual: Ejercicio!    
+    var indiceSeccionDeOpciones: Int!
+    var ultimaFilaUsada: Int = 0 {
         didSet{
-            UltimaFilaUsada = (UltimaFilaUsada < 0) ? 0 : UltimaFilaUsada
+            ultimaFilaUsada = (ultimaFilaUsada < 0) ? 0 : ultimaFilaUsada
         }
     }
-    var AltoDeEtiqueta: CGFloat!
     
-    var color : UIColor!// = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
+    var altoDeEtiqueta: CGFloat!
+    
+    var color : UIColor!
     var yaFueRevisado = false
-    var RespuestaCorrecta: String!
+    var respuestaCorrecta: String!
     var relleno: String = ""
     var dataSource: [Fila] = []
     
@@ -71,34 +74,26 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     let EspacioEntreSecciones = CGFloat(50)
     let AlturaImagen = CGFloat(65)
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        AltoDeEtiqueta = nuevaLabel().frame.size.height
+        altoDeEtiqueta = nuevaLabel().frame.size.height
         // calculando el ancho de los renglones del collectionview
         let anchoPantalla = self.view.frame.size.width
         let margenesYConstraints = CGFloat( (2 * 10) + (2 * 10))
         Fila.LargoMax = anchoPantalla - margenesYConstraints
         
-        EjercicioActual = Ejercicios.removeFirst()
-        preguntaTextView.text = EjercicioActual.textos!
+        ejercicioActual = ejercicios.removeFirst()
+        PreguntaTextView.text = ejercicioActual.textos!
         
-        var  arreglo = EjercicioActual.respuestas!.characters.split{$0 == "|"}.map(String.init)
+        var  arreglo = ejercicioActual.respuestas!.characters.split{$0 == "|"}.map(String.init)
         // removiendo el @
         arreglo[0].remove(at: arreglo[0].startIndex)
-        RespuestaCorrecta = arreglo.removeFirst()
-        
-        
-        // calcular el numero de secciones para asi mostrar parrafos 
-        // basandonos en el ancho de cada etiqueta mas el espacio entre ellas
-        // y agregarlos como secciones vacias al principio del datasource
-        
+        respuestaCorrecta = arreglo.removeFirst()
         
         // inicializar data source
         // con seccion de opciones
         var seccionDeOpciones = Fila(tipo: "opciones")
-        var opcionesDeRespuesta = RespuestaCorrecta.components(separatedBy: " ") + arreglo
+        var opcionesDeRespuesta = respuestaCorrecta.components(separatedBy: " ") + arreglo
         opcionesDeRespuesta.shuffle()
         for palabra in opcionesDeRespuesta{
             let etiqueta = nuevaLabel(palabra)
@@ -112,16 +107,15 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         }
         // agregar la seccion de opciones de respuesta
         dataSource.append(seccionDeOpciones)
-        IndiceSeccionDeOpciones = dataSource.count - 1
+        indiceSeccionDeOpciones = dataSource.count - 1
         
         // ocultando la imagen
         AlturaDeImagenConstraint.constant = 0
         CalificacionImageView.alpha = 0
         
-        
         // calculando altura de las cosas
-        preguntaTextView.sizeToFit()
-        AlturaCollectionViewConstraint.constant = ((AltoDeEtiqueta.magnitude  /*+ EspacioEntreRenglones*/ ) * CGFloat(dataSource.count)) * 2
+        PreguntaTextView.sizeToFit()
+        AlturaCollectionViewConstraint.constant = ((altoDeEtiqueta.magnitude  /*+ EspacioEntreRenglones*/ ) * CGFloat(dataSource.count)) * 2
         AlturaCollectionViewConstraint.constant += EspacioEntreSecciones / 2
         
         var alturaRequerida = CGFloat(0)
@@ -129,9 +123,9 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         let alturaPantalla = self.view.frame.size.height - self.navigationController!.navigationBar.frame.height - UIApplication.shared.statusBarFrame.height
         // el 60 viene del espacio vertical entre las constraints del textview y el collectionview en el IB
         
-        alturaRequerida = 60 + preguntaTextView.frame.size.height +  AlturaCollectionViewConstraint.constant
+        alturaRequerida = 60 + PreguntaTextView.frame.size.height +  AlturaCollectionViewConstraint.constant
         alturaRequerida += EspacioBotonCollectionConstraint.constant
-        alturaRequerida += BotonRevisar.frame.size.height
+        alturaRequerida += RevisarButton.frame.size.height
         
         // si la altura minima requerida es menor que la altura de la pantalla
         if(alturaRequerida <= alturaPantalla){
@@ -145,146 +139,11 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
             EspacioBotonCollectionConstraint.isActive = true
             // la altura calculada permanece como altura de la pantalla
             //el boton se pega bajo el collection view o la imageview
-        }        
-
-        // iniciando boton
+        }
         iniciarBoton()
-        
         let ejercicioString = NSLocalizedString("Exercise", comment: "")
-        let numero = " \(5 - Ejercicios.count)/5"
+        let numero = " \(5 - ejercicios.count)/5"
         self.title = ejercicioString + numero
-        
-    }
-    
-   
-    
-    func nuevaLabel(_ titulo: String = "word") -> UILabel{
-        let label = UILabel()
-        label.text = titulo
-        label.textAlignment = .center
-        label.textColor = UIColor.white
-        label.backgroundColor = color
-        
-        label.adjustsFontForContentSizeCategory = false
-        label.adjustsFontSizeToFitWidth = false
-        label.sizeToFit()
-        // añadirle un poco de padding
-        label.frame.size.width += 15
-        label.frame.size.height += 15
-        label.layer.cornerRadius = 5
-        label.frame.origin.y -= 3
-        label.layer.masksToBounds = true
-        
-        return label
-    }
-    
-    @objc func accionDelBoton() {
-        if yaFueRevisado{
-            siguienteEjercicio()
-        }else{
-            revisar()
-        }
-    }
-    func iniciarBoton(){
-        BotonRevisar.backgroundColor = UIColor.white
-        BotonRevisar.addTarget(self, action: #selector(accionDelBoton), for: .touchDown)
-        BotonRevisar.layer.cornerRadius = 10
-        BotonRevisar.layer.borderWidth = 1.5
-        BotonRevisar.layer.borderColor = color.cgColor
-        BotonRevisar.setTitleColor( #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1), for: .disabled)
-    }
-    
-    func revisar() {
-        yaFueRevisado = true
-        collectionView.isUserInteractionEnabled = false
-        var respuestaDelUsuario: String = ""
-        for fila in dataSource{
-            if(fila.contiene == "opciones"){
-                break
-            }
-            for palabra in fila.palabras{
-                respuestaDelUsuario.append(palabra.text!)
-                respuestaDelUsuario.append(" ")
-            }
-        }
-        if !respuestaDelUsuario.isEmpty{
-            // removiendo el ultimo espacio del ciclo
-            respuestaDelUsuario.remove(at: respuestaDelUsuario.index(before: respuestaDelUsuario.endIndex))
-        }
-        BotonRevisar.setTitle(NSLocalizedString("Next", comment: ""), for: .normal)
-
-        if(RespuestaCorrecta == respuestaDelUsuario){
-            CalificacionImageView.image = #imageLiteral(resourceName: "correcto")
-            EjercicioActual.vecesAcertado += 1
-        }else {
-            CalificacionImageView.image = #imageLiteral(resourceName: "equivocado")
-            EjercicioActual.vecesFallado += 1
-            mostrarRespuesta()
-        }
-        AlturaCollectionViewConstraint.constant /= 2
-        AlturaViewControllerConstraint.constant += AlturaImagen
-        UIView.animate(withDuration: 0.3, animations: {
-            self.AlturaDeImagenConstraint.constant = self.AlturaImagen
-            self.CalificacionImageView.alpha = 1
-            if let _ = self.EspacioBotonCollectionConstraint{
-                self.EspacioBotonCollectionConstraint.constant += self.AlturaImagen * 2.5
-            }
-            
-        })
-        print("Veces acertado: \(EjercicioActual.vecesAcertado)")
-        print("Veces fallado: \(EjercicioActual.vecesFallado)")
-        do{
-            try EjercicioActual.managedObjectContext?.save()
-        }catch{
-            print("No se pudo guardar en CoreData la calificacion del ejercicio")
-        }
-        
-    }
-    // MARK:- Navegacion
-    func siguienteEjercicio() {
-        if let siguienteE = Ejercicios.first{
-            let storyBoard: UIStoryboard = (self.navigationController?.storyboard)!
-            var siguienteViewController: UIViewController?
-            switch siguienteE.tipo! {
-            case "Voz":
-                let eVoz = storyBoard.instantiateViewController(withIdentifier: "EjercicioVozVC") as! EjercicioVozVC
-                eVoz.color = self.color
-                eVoz.Ejercicios = Ejercicios
-                siguienteViewController = eVoz
-            case "Opcion multiple":
-                let eOpMul = storyBoard.instantiateViewController(withIdentifier: "EjercicioOpMulVC") as! EjercicioOpMulVC
-                eOpMul.color = self.color
-                eOpMul.Ejercicios = Ejercicios
-                siguienteViewController = eOpMul
-            case "Ordenar oracion":
-                let eOrOr = storyBoard.instantiateViewController(withIdentifier: "EjercicioOrdenarVC") as! EjercicioOrdenarVC
-                eOrOr.color = self.color
-                eOrOr.Ejercicios = Ejercicios
-                siguienteViewController = eOrOr
-            case "Escritura":
-                let eEs = storyBoard.instantiateViewController(withIdentifier: "EjercicioEscrituraVC") as! EjercicioEscrituraVC
-                eEs.color = self.color
-                eEs.Ejercicios = Ejercicios
-                siguienteViewController = eEs
-            default:
-                print("Tipo de ejercicio desconocido: \(siguienteE.tipo!)")
-            }
-            if let sViewC = siguienteViewController{
-                var stack = self.navigationController!.viewControllers
-                stack.popLast()
-                stack.append(sViewC)
-                self.navigationController?.setViewControllers(stack, animated: true)
-            }
-        }else{
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
- 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "segueEscritura"){
-            let vc = segue.destination as! EjercicioEscrituraVC
-            vc.color = self.color
-        }
     }
     
     // MARK:- CollectionView
@@ -295,11 +154,10 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource[section].palabras.count
     }
-    
    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if(!BotonRevisar.isEnabled){
-            BotonRevisar.isEnabled = true
+        if(!RevisarButton.isEnabled){
+            RevisarButton.isEnabled = true
         }
         var filaOrigen = indexPath.section
         let posicionOrigen = indexPath.item
@@ -307,16 +165,16 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         var filaDestino: Int
         // si tocan una palabra en la seccion de opciones, esta se va a la primer fila, si esta ya esta llena a la siguente
         // y asi sucesivamente hasta encontrar una fila donde haya espacio
-        if(filaOrigen == IndiceSeccionDeOpciones){
-            filaDestino = UltimaFilaUsada
+        if(filaOrigen == indiceSeccionDeOpciones){
+            filaDestino = ultimaFilaUsada
             let etiquetaPorMover = dataSource[filaOrigen].palabras.remove(at: posicionOrigen)
             
-            for _ in UltimaFilaUsada...(dataSource.count - 2){
-                if(dataSource[UltimaFilaUsada].puedeContener(otra: etiquetaPorMover)){
-                    filaDestino = UltimaFilaUsada
+            for _ in ultimaFilaUsada...(dataSource.count - 2){
+                if(dataSource[ultimaFilaUsada].puedeContener(otra: etiquetaPorMover)){
+                    filaDestino = ultimaFilaUsada
                     break
                 }else{
-                    UltimaFilaUsada += 1
+                    ultimaFilaUsada += 1
                 }
             }
             // mover  en data source
@@ -331,14 +189,14 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         // palabras en las otras secciones
     
         else  { // mandar al fondo
-            posicionDestino = collectionView.numberOfItems(inSection: IndiceSeccionDeOpciones)
+            posicionDestino = collectionView.numberOfItems(inSection: indiceSeccionDeOpciones)
             // en data source
             let etiquetaPorMover = dataSource[filaOrigen].palabras.remove(at: posicionOrigen)
-            dataSource[IndiceSeccionDeOpciones].palabras.append(etiquetaPorMover)
+            dataSource[indiceSeccionDeOpciones].palabras.append(etiquetaPorMover)
             // en collectionView
-            collectionView.moveItem(at: indexPath, to: IndexPath(item:posicionDestino, section:IndiceSeccionDeOpciones))
+            collectionView.moveItem(at: indexPath, to: IndexPath(item:posicionDestino, section:indiceSeccionDeOpciones))
             if(dataSource[filaOrigen].palabras.isEmpty){
-                UltimaFilaUsada -= 1
+                ultimaFilaUsada -= 1
             }
             
             // en el espacio que se libero, intentar encajar palabras de las filas de abajo
@@ -356,7 +214,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
                 }
             }
             if(dataSource[filaSiguiente].palabras.isEmpty){
-                UltimaFilaUsada -= 1
+                ultimaFilaUsada -= 1
             }
             
         }
@@ -364,7 +222,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let ancho = dataSource[indexPath.section].palabras[indexPath.item].frame.size.width
-        return CGSize(width: ancho, height: AltoDeEtiqueta)
+        return CGSize(width: ancho, height: altoDeEtiqueta)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
@@ -380,7 +238,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if(collectionView.numberOfItems(inSection: section) == 0) {
-            return CGSize.init(width: Fila.LargoMax!, height: AltoDeEtiqueta + 1)
+            return CGSize.init(width: Fila.LargoMax!, height: altoDeEtiqueta + 1)
         }else{
             // si tuviera la altura = 0 daria un bug cuando todas las palabras estan una seccion intermedia y luego intentas sacarla
             return CGSize(width: 0, height: 1)
@@ -412,6 +270,93 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
+    
+    // MARK: - Otros
+    
+    func nuevaLabel(_ titulo: String = "word") -> UILabel{
+        let label = UILabel()
+        label.text = titulo
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.backgroundColor = color
+        
+        label.adjustsFontForContentSizeCategory = false
+        label.adjustsFontSizeToFitWidth = false
+        label.sizeToFit()
+        
+        label.frame.size.width += 15
+        label.frame.size.height += 15
+        label.layer.cornerRadius = 5
+        label.frame.origin.y -= 3
+        label.layer.masksToBounds = true
+        
+        return label
+    }
+    
+    @objc func accionDelBoton() {
+        if yaFueRevisado{
+            siguienteEjercicio()
+        }else{
+            revisar()
+        }
+    }
+    func iniciarBoton(){
+        RevisarButton.backgroundColor = UIColor.white
+        RevisarButton.addTarget(self, action: #selector(accionDelBoton), for: .touchDown)
+        RevisarButton.layer.cornerRadius = 10
+        RevisarButton.layer.borderWidth = 1.5
+        RevisarButton.layer.borderColor = color.cgColor
+        RevisarButton.setTitleColor( #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1), for: .disabled)
+    }
+    
+    func revisar() {
+        yaFueRevisado = true
+        collectionView.isUserInteractionEnabled = false
+        var respuestaDelUsuario: String = ""
+        for fila in dataSource{
+            if(fila.contiene == "opciones"){
+                break
+            }
+            for palabra in fila.palabras{
+                respuestaDelUsuario.append(palabra.text!)
+                respuestaDelUsuario.append(" ")
+            }
+        }
+        if !respuestaDelUsuario.isEmpty{
+            // removiendo el ultimo espacio del ciclo
+            respuestaDelUsuario.remove(at: respuestaDelUsuario.index(before: respuestaDelUsuario.endIndex))
+        }
+        RevisarButton.setTitle(NSLocalizedString("Next", comment: ""), for: .normal)
+        
+        if(respuestaCorrecta == respuestaDelUsuario){
+            CalificacionImageView.image = #imageLiteral(resourceName: "correcto")
+            ejercicioActual.vecesAcertado += 1
+        }else {
+            CalificacionImageView.image = #imageLiteral(resourceName: "equivocado")
+            ejercicioActual.vecesFallado += 1
+            mostrarRespuesta()
+        }
+        AlturaCollectionViewConstraint.constant /= 2
+        AlturaViewControllerConstraint.constant += AlturaImagen
+        UIView.animate(withDuration: 0.3, animations: {
+            self.AlturaDeImagenConstraint.constant = self.AlturaImagen
+            self.CalificacionImageView.alpha = 1
+            if let _ = self.EspacioBotonCollectionConstraint{
+                self.EspacioBotonCollectionConstraint.constant += self.AlturaImagen * 2.5
+            }
+            
+        })
+        print("Veces acertado: \(ejercicioActual.vecesAcertado)")
+        print("Veces fallado: \(ejercicioActual.vecesFallado)")
+        do{
+            try ejercicioActual.managedObjectContext?.save()
+        }catch{
+            print("No se pudo guardar en CoreData la calificacion del ejercicio")
+        }
+        
+    }
+    
+    
     func mostrarRespuesta() {
         collectionView.performBatchUpdates({
             // borrar todo
@@ -426,7 +371,7 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
             }
             self.collectionView.deleteItems(at: palabrasPorBorrarIndices)
             //volver a llenar con las respuestas correctas
-            let palabrasCorrectas = self.RespuestaCorrecta.components(separatedBy: " ")
+            let palabrasCorrectas = self.respuestaCorrecta.components(separatedBy: " ")
             var palabrasPorInsertarIndices: [IndexPath] = []
             var indiceP: Int = 0
             var fila: Int = 0
@@ -449,12 +394,59 @@ class EjercicioOrdenarVC: UIViewController, UICollectionViewDelegate, UICollecti
             self.collectionView.insertItems(at: palabrasPorInsertarIndices)
             // borrar seccion de opciones
             var set = IndexSet()
-            set.insert(IndexSet.Element(self.IndiceSeccionDeOpciones))
+            set.insert(IndexSet.Element(self.indiceSeccionDeOpciones))
             self.collectionView.deleteSections(set)
-            self.dataSource.remove(at: self.IndiceSeccionDeOpciones)
+            self.dataSource.remove(at: self.indiceSeccionDeOpciones)
             self.collectionView.sizeToFit()
-        
+            
         }, completion: nil)
     }
+    
+    func siguienteEjercicio() {
+        if let siguienteE = ejercicios.first{
+            let storyBoard: UIStoryboard = (self.navigationController?.storyboard)!
+            var siguienteViewController: UIViewController?
+            switch siguienteE.tipo! {
+            case "Voz":
+                let eVoz = storyBoard.instantiateViewController(withIdentifier: "EjercicioVozVC") as! EjercicioVozVC
+                eVoz.color = self.color
+                eVoz.ejercicios = ejercicios
+                siguienteViewController = eVoz
+            case "Opcion multiple":
+                let eOpMul = storyBoard.instantiateViewController(withIdentifier: "EjercicioOpMulVC") as! EjercicioOpMulVC
+                eOpMul.color = self.color
+                eOpMul.Ejercicios = ejercicios
+                siguienteViewController = eOpMul
+            case "Ordenar oracion":
+                let eOrOr = storyBoard.instantiateViewController(withIdentifier: "EjercicioOrdenarVC") as! EjercicioOrdenarVC
+                eOrOr.color = self.color
+                eOrOr.ejercicios = ejercicios
+                siguienteViewController = eOrOr
+            case "Escritura":
+                let eEs = storyBoard.instantiateViewController(withIdentifier: "EjercicioEscrituraVC") as! EjercicioEscrituraVC
+                eEs.color = self.color
+                eEs.ejercicios = ejercicios
+                siguienteViewController = eEs
+            default:
+                print("Tipo de ejercicio desconocido: \(siguienteE.tipo!)")
+            }
+            if let sViewC = siguienteViewController{
+                var stack = self.navigationController!.viewControllers
+                stack.popLast()
+                stack.append(sViewC)
+                self.navigationController?.setViewControllers(stack, animated: true)
+            }
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "segueEscritura"){
+            let vc = segue.destination as! EjercicioEscrituraVC
+            vc.color = self.color
+        }
+    }
+    
     
 }

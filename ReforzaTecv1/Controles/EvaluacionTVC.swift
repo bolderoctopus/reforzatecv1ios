@@ -7,13 +7,21 @@
 //
 
 import UIKit
-// Guarda las datos de celdas en el data soruce antes de que sean reutilizadas por la table view
+
+
+/**
+ Permite guardar lo que el usuario ha contestado en el dataSource de la tableView para que cuando
+ las preguntas no sean visibles no se pierda su respuesta al reciclar la vista.
+ */
 protocol GuardarDatosProtocol: class{
     func guardar(respuestAbierta: String, en indice: Int)
     func guaradar(RespuestasMultiples: [UIView], en indice: Int)
 }
 class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
     
+    /**
+     Representa el modelo de un pregunta que se muestra.
+     */
     struct PreguntaStruct {
         var indice: Int
         var texto: String
@@ -33,7 +41,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
             case correcto
             case incorrecto
         }
-        // y practicamente este es el constructor para cuando es de abierta
+        
         init(texto: String, respuesta: String, indice: Int, id: Int16) {
             self.indice = indice
             self.texto = texto
@@ -45,7 +53,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
             self.estado = .sinCalificar
             self.id = id
         }
-        // practicmente este es el constructor para cuando es de opcionM
+        
         init(texto: String, respuesta: String, opciones: [String], ancho: CGFloat, color: UIColor, indice: Int, id: Int16) {
             self.indice = indice
             self.texto = texto
@@ -106,36 +114,35 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
     }
     
     
-    @IBOutlet weak var ResultadosSV: UIStackView!
-    @IBOutlet weak var AciertosL: UILabel!
-    @IBOutlet weak var ErroresL: UILabel!
-    @IBOutlet weak var TiempoL: UILabel!
-    @IBOutlet weak var RevisarB: UIButton!
-    @IBOutlet weak var AlturaC: NSLayoutConstraint!
-    @IBOutlet weak var ResultadosV: UIView!
+    @IBOutlet weak var ResultadosStackView: UIStackView!
+    @IBOutlet weak var AciertosLabel: UILabel!
+    @IBOutlet weak var ErroresLabel: UILabel!
+    @IBOutlet weak var TiempoLabel: UILabel!
+    @IBOutlet weak var RevisarButton: UIButton!
+    @IBOutlet weak var AlturaConstraint: NSLayoutConstraint!
+    @IBOutlet weak var ResultadosView: UIView!
     
     var horaInicial: NSDate!
     var dataSource: [PreguntaStruct]!
     var color: UIColor!
-    var PreguntasEvaluacion: [Evaluacion]!
+    var preguntasEvaluacion: [Evaluacion]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         inicializarDataSource()
-       
+   
+        RevisarButton.layer.borderWidth = 1.5
+        RevisarButton.layer.borderColor = color.cgColor
+        RevisarButton.layer.cornerRadius = 10
+        RevisarButton.setTitleColor(color,for: .normal)
+        RevisarButton.backgroundColor = UIColor.white
         
-        RevisarB.layer.borderWidth = 1.5
-        RevisarB.layer.borderColor = color.cgColor
-        RevisarB.layer.cornerRadius = 10
-        RevisarB.setTitleColor(color,for: .normal)
-        RevisarB.backgroundColor = UIColor.white
-        
-        ResultadosV.backgroundColor = UIColor.white
-        ResultadosV.layer.borderWidth = 1.5
-        ResultadosV.layer.borderColor = color.cgColor
-        ResultadosV.layer.cornerRadius = 10
-        ResultadosV.alpha = 0
-        AlturaC.constant = 0
+        ResultadosView.backgroundColor = UIColor.white
+        ResultadosView.layer.borderWidth = 1.5
+        ResultadosView.layer.borderColor = color.cgColor
+        ResultadosView.layer.cornerRadius = 10
+        ResultadosView.alpha = 0
+        AlturaConstraint.constant = 0
         
         tableView.register(UINib(nibName: "PreguntaATVC", bundle: nil), forCellReuseIdentifier: "preguntaAbierta")
         tableView.register(UINib(nibName: "PreguntaOMTVC", bundle: nil), forCellReuseIdentifier: "preguntaOpcion")
@@ -149,53 +156,50 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
         horaInicial = NSDate()
     }
     
-    // revisarAction
     @IBAction func RevisarA(_ sender: Any) {
-        // calificar
-        // mostrar resultados
         contarAciertos()
-        TiempoL.text?.append(tiempoTranscurrido())
+        TiempoLabel.text?.append(tiempoTranscurrido())
         UIView.animate(withDuration: 0.3, animations: {
-            self.AlturaC.constant = 128
-            self.ResultadosV.alpha = 1
+            self.AlturaConstraint.constant = 128
+            self.ResultadosView.alpha = 1
         })
-        RevisarB.isEnabled = false
-        
+        RevisarButton.isEnabled = false
     }
     
-    // MARK: - Table view data source
+    // MARK: - Table view
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
-        return 1
+       return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
+    
+    // MARK: - Otros
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let p = dataSource[indexPath.row]
         switch p.tipo {
             case .abierta:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "preguntaAbierta", for: indexPath)as! PreguntaATVC
-                cell.PreguntaL.text = String(indexPath.row + 1) + ". " + p.texto
+                cell.PreguntaLabel.text = String(indexPath.row + 1) + ". " + p.texto
                 cell.color = color
                 cell.respuestaCorrecta = p.respuestaCorrecta
-                cell.RespuestaTF.text = p.respuestaAbierta
+                cell.RespuestaTextField.text = p.respuestaAbierta
                 cell.delegate = self
                 cell.indiceDataSource = p.indice
                 if(p.estado == .correcto){
-                    cell.RespuestaTF.textColor = UIColor.green
-                    cell.RespuestaTF.isEnabled = false
+                    cell.RespuestaTextField.textColor = UIColor.green
+                    cell.RespuestaTextField.isEnabled = false
                 }else if(p.estado == .incorrecto){
-                    cell.RespuestaTF.textColor = UIColor.red
-                    cell.RespuestaTF.isEnabled = false
-                    cell.RespuestaTF.attributedText = tachar(string: p.respuestaAbierta)
+                    cell.RespuestaTextField.textColor = UIColor.red
+                    cell.RespuestaTextField.isEnabled = false
+                    cell.RespuestaTextField.attributedText = tachar(string: p.respuestaAbierta)
                 }
                 return cell
             case .opcionM:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "preguntaOpcion", for: indexPath)as! PreguntaOMTVC
-                cell.PreguntaL.text = String(indexPath.row + 1) + ". " + p.texto
+                cell.PreguntaLabel.text = String(indexPath.row + 1) + ". " + p.texto
                 cell.color = color
                 cell.delegate = self
                 cell.indiceDataSource = p.indice
@@ -211,7 +215,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
                     if(p.estado != PreguntaStruct.estados.sinCalificar){
                         boton.isEnabled = false
                     }
-                    cell.OpcionesSV.addArrangedSubview(boton)
+                    cell.OpcionesStackView.addArrangedSubview(boton)
                 }
                 return cell
         }
@@ -220,7 +224,7 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
     private func inicializarDataSource() {
         dataSource = []
         var indice = 0
-        for p in PreguntasEvaluacion{
+        for p in preguntasEvaluacion{
             var  arreglo = p.respuestas!.characters.split{$0 == "|"}.map(String.init)
             if(arreglo.count == 1){
                 var rCorrecta = arreglo.first!
@@ -237,20 +241,12 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
                 }
                 rCorrecta.remove(at: rCorrecta.startIndex)
                 dataSource.append(PreguntaStruct(texto: p.pregunta!, respuesta: rCorrecta, opciones: arreglo, ancho: tableView.frame.width, color: color, indice: indice, id: p.idEv))
-                //dataSource.append(PreguntaStruct(texto: p.pregunta!, respuesta: rCorrecta, opciones: arreglo, ancho: tableView.frame.width, color: color, indice: Int(p.idEv)))
             }
             indice += 1
         }
     }
     
-    // MARK:- Definicion de protocolos
-    func guardar(respuestAbierta: String, en indice: Int) {
-        dataSource[indice].respuestaAbierta = respuestAbierta
-    }
-    
-    func guaradar(RespuestasMultiples: [UIView], en indice: Int) {
-        dataSource[indice].botones = RespuestasMultiples
-    }
+  
     
     func tiempoTranscurrido() -> String {
         let segundos = Int(horaInicial.timeIntervalSinceNow.magnitude)
@@ -286,22 +282,18 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
                 fallos += 1
                 r = "0"
             }
-            
             resultados[id] = r
         }
-        
         subirCalificaciones(resultados)
-        
-        AciertosL.text?.append(" \(aciertos)")
-        ErroresL.text?.append(" \(fallos)")
+        AciertosLabel.text?.append(" \(aciertos)")
+        ErroresLabel.text?.append(" \(fallos)")
         tableView.reloadData()
     }
     
     func subirCalificaciones(_ resultados: [String: String]) {
         do{
             let json = try JSONSerialization.data(withJSONObject: resultados, options: [] )
-            //print(String(data:json, encoding: .utf8)!)
-            let url = URL (string: (MateriaStruct.CALIFICACIONES + String(PreguntasEvaluacion.first!.unidad!.idUni)) )!
+            let url = URL (string: (MateriaStruct.CALIFICACIONES + String(preguntasEvaluacion.first!.unidad!.idUni)) )!
             var request = URLRequest(url: url)
             request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             request.httpBody = ("resultados=" + String(data:json, encoding: .utf8)!).data(using: .utf8)!
@@ -324,9 +316,16 @@ class EvaluacionTVC: UITableViewController, GuardarDatosProtocol {
         }catch {
             print("No fue posible enviar al servidor.")
         }
-            
-        // poner parametros
-        
+ 
+    }
+    
+    // MARK:- Definicion de protocolos
+    func guardar(respuestAbierta: String, en indice: Int) {
+        dataSource[indice].respuestaAbierta = respuestAbierta
+    }
+    
+    func guaradar(RespuestasMultiples: [UIView], en indice: Int) {
+        dataSource[indice].botones = RespuestasMultiples
     }
     
 }

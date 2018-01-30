@@ -9,28 +9,22 @@
 import Foundation
 import CoreData
 
-
 class Downloader {
+    /**
+     Descarga un archivo y lo guarda donde se le especifique.
+     */
     class func bajar(url: URL, to localUrl: URL, completion: @escaping () -> ()) {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         let request =  URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData)
-    
         let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
-            if /*let tempLocalUrl = tempLocalUrl,*/ error == nil {
-                // Success
-                if let _ = (response as? HTTPURLResponse)?.statusCode {
-                    //print("Success")
-                }
-                
+            if  error == nil {
                 do {
                     try FileManager.default.copyItem(at: tempLocalUrl!, to: localUrl)                    
                     completion()
-
                 } catch (let writeError) {
                     print("error writing file \(localUrl) : \(writeError)")
                 }
-//
             } else {
                 print("Failure: %@", error!.localizedDescription);
             }
@@ -38,20 +32,20 @@ class Downloader {
         task.resume()
     }
     
-    // descarga la lista de mateiras disponibles y hace lo que quieras con la lista si le pasas una clousure 
+    /**
+     Descarga la lista de materias disponibles.
+     */
     class func descargarListaMaterias ( alFinalizar: @escaping ([Int32: MateriaStruct])-> ()) {
         var lista = [Int32: MateriaStruct] ()
-        let url = URL(string: MateriaStruct.direccion)
+        let url = URL(string: MateriaStruct.ESQUEMA)
         let session = URLSession.shared
         
         let task = session.dataTask(with: url!, completionHandler: {data,response,error -> Void in
             lista.removeAll()
-            //task ejecutandose
             if(error != nil){
                 print(error.debugDescription)
-                print("Error al descargar la lista de materias")            }
+            }
             else {
-                //self.parsearJSON(d: data!)
                 var nombres = [String] ()
                 var ids = [String] ()
                 var descripciones = [String] ()
@@ -59,7 +53,6 @@ class Downloader {
                 do {
                     if NSString(data: data!, encoding: String.Encoding.utf8.rawValue) != nil {
                         let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [AnyObject]
-                        // ???
                         nombres = json.map { ($0 as! [String:AnyObject]) ["nombre"] as! String }
                         ids = json.map { ($0 as! [String:AnyObject]) ["idMaterias"] as! String }
                         descripciones = json.map { ($0 as! [String:AnyObject]) ["descripcion"] as! String }
@@ -68,9 +61,8 @@ class Downloader {
                 } catch {
                     print(error)
                 }
-                //tal vez es inecesario, por quitar?
+        
                 guard nombres.count == ids.count && ids.count == descripciones.count else {
-                    print("Tenemos diferente cantidad de materias, ids o descripciones")
                     return
                 }
                 
@@ -81,33 +73,32 @@ class Downloader {
                         lista[id] = m
                     }
                 }
-                //
                 alFinalizar(lista)
-                
             }
         })
         task.resume()
         
     }
 
+        /**
+         Descarga las unidades, ejercicios y archivos de una materia.
+         */
     class func bajarContenio(de materia: MateriaStruct, con context: NSManagedObjectContext, alFinalizar: @escaping ()->()){
-        //guardando en CoreData
-        
-        let url = URL(string: MateriaStruct.DESCARGA_UNIDAD + String(materia.id))
+
+        let url = URL(string: MateriaStruct.DESCARGA_UNIDAD + String(materia.Id))
         let session = URLSession.shared
         let task = session.dataTask(with: url!, completionHandler: {data, response, error -> Void in
             if(error != nil){
                 print(error.debugDescription)
-                print("Error al descargar la lista de materias")
             }
             else {
                 var archivosPorDescargar: [String] = []
-                // una materia
+                
                 let coreDataMateria = Materia(context: context)
-                coreDataMateria.idMateria = Int32(materia.id)
-                coreDataMateria.nombre = materia.mNombre
-                coreDataMateria.descripcion = materia.mDescripcion
-                coreDataMateria.version = materia.version
+                coreDataMateria.idMateria = Int32(materia.Id)
+                coreDataMateria.nombre = materia.Nombre
+                coreDataMateria.descripcion = materia.Descripcion
+                coreDataMateria.version = materia.Version
                 
                 let arregloRaiz = try? JSONSerialization.jsonObject(with: data!, options: [])
                 if let unidadesJson = arregloRaiz as? [Any]{
@@ -118,24 +109,17 @@ class Downloader {
                             if let id = unidad["id"] as? String{
                                 coreDataUnidad.idUni = Int16(id)!
                             }
-                            
                             if let nombre = unidad["nombre"] as? String{
-                                //                                print("nombre: \(nombre)")
                                 coreDataUnidad.nombreUni = nombre
                             }
                             if let descripcion = unidad["descripcion"] as? String {
-                                //                                print("descripcion: \(descripcion)")
                                 coreDataUnidad.descripcionUni = descripcion
                             }
-                            
                             if let teoria = unidad["teoria"] as? String{
-                                //print("teoria: \(teoria)")
                                 coreDataUnidad.teoria = teoria
                                 archivosPorDescargar.append(teoria)
                             }
-                            
                             if let ejemplo = unidad["ejemplo"] as? String{
-                                //print("ejemplo: \(ejemplo)")
                                 coreDataUnidad.ejemplo = ejemplo
                                 archivosPorDescargar.append(ejemplo)
                             }
@@ -145,15 +129,12 @@ class Downloader {
                                     if let ejercicio = ejercicioJson as? [String: Any]{
                                         let coreDataEjercicio = Ejercicio(context: context)
                                         if let pregunta = ejercicio["pregunta"] as? String{
-                                            //                                            print("pregunta \(pregunta)")
                                             coreDataEjercicio.textos = pregunta
                                         }
                                         if let respuestas = ejercicio["respuestas"] as? String{
-                                            //                                            print("respuestas \(respuestas)")
                                             coreDataEjercicio.respuestas = respuestas
                                         }
                                         if let tipo = ejercicio["tipo"] as? String{
-                                            //                                            print("tipo \(tipo)")
                                             coreDataEjercicio.tipo = tipo
                                         }
                                         coreDataEjercicio.unidad = coreDataUnidad
@@ -169,17 +150,13 @@ class Downloader {
                                         if let idEv = evaluacion["idEvaluaciones"] as? String{
                                             coreDataEvaluacion.idEv = Int16(idEv)!
                                         }
-                                        
                                         if let texto = evaluacion["textos"] as? String{
-                                            //print("texto \(texto)")
                                             coreDataEvaluacion.pregunta = texto
                                         }
                                         if let respuesta = evaluacion["respuestas"] as?     String {
-                                            //print("respuesta \(respuesta)")
                                             coreDataEvaluacion.respuestas = respuesta
                                         }
                                         if let puntaje = evaluacion["puntos"] as? Int16 {
-                                            //print("puntaje \(puntaje)")
                                             coreDataEvaluacion.puntos = puntaje
                                         }
                                         coreDataUnidad.addToEvaluaciones(coreDataEvaluacion)
@@ -201,7 +178,9 @@ class Downloader {
         })
         task.resume()
     }
-    
+    /**
+     Similar a bajarContenido, pero más bien reemplaza lo que hay en una materia ya existente.
+     */
     class func actualizar(materia: Materia, con context: NSManagedObjectContext, alFinalizar: @escaping ()-> Void) {
         let url = URL(string: MateriaStruct.DESCARGA_UNIDAD + String(materia.idMateria))
         let session = URLSession.shared
@@ -261,7 +240,6 @@ class Downloader {
                                         if let idEv = evaluacion["idEvaluaciones"] as? String{
                                             coreDataEvaluacion.idEv = Int16(idEv)!
                                         }
-                                        
                                         if let texto = evaluacion["textos"] as? String{
                                             coreDataEvaluacion.pregunta = texto
                                         }
@@ -290,7 +268,11 @@ class Downloader {
         })
         task.resume()
     }
-    
+        
+    /**
+     Permite descargar más de un archivo se forma secuencial y se asegura de ejecutar el bloque de código alFinalizar una vez
+         hallan acabado de descargarse todos los archivos.
+     */
     class func descargarArchivos( archivos: [String], alFinalizar: @escaping ()->() ){
         var archivos = archivos
         if archivos.count == 1 { // caso de parada

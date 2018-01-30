@@ -7,16 +7,21 @@
 //
 
 import UIKit
-//Permite cambiar de color a la barra de estado facilmente
+import SystemConfiguration
+
+/**
+ Facilita el cambio de color para la barra de estado.
+ */
 extension UIApplication{
     var statusBarView : UIView?{
         return value(forKey: "statusBar")  as? UIView
     }
 }
 
-
+/**
+ Permite ordenar aleatoriamente los elementos de una colección.
+ */
 extension MutableCollection {
-    /// Shuffles the contents of this collection.
     mutating func shuffle() {
         let c = count
         guard c > 1 else { return }
@@ -29,8 +34,10 @@ extension MutableCollection {
     }
 }
 
+/**
+ Permite ordenar aleatoriamente los elementos de un arreglo.
+ */
 extension Sequence {
-    /// Returns an array with the contents of this sequence, shuffled.
     func shuffled() -> [Element] {
         var result = Array(self)
         result.shuffle()
@@ -38,8 +45,9 @@ extension Sequence {
     }
 }
 
-
-//Permite ejecutar cosas en segundo plano
+/**
+ Facilita la ejecución de bloques de código en segundo plano.
+ */
 extension DispatchQueue {    
     static func background(delay: Double = 0.0, background: (()->Void)? = nil, completion: (() -> Void)? = nil) {
         DispatchQueue.global(qos: .background).async {
@@ -54,7 +62,9 @@ extension DispatchQueue {
     
 }
 
-// Aniade un metodo en los UITextField para solo mostrar el borde inferior
+/**
+ Añade un método en los UITextField para dibujar únicamente el borde inferior.
+ */
 extension UITextField {
     func setBottomBorder() {
         self.borderStyle = .none
@@ -67,7 +77,10 @@ extension UITextField {
         self.layer.shadowRadius = 0.0
     }
 }
-// Mueve un scrollview para mosrar una view
+
+/**
+ Mueve un scrollview para mosrar una vista.
+ */
 extension UIScrollView {
     // Scroll to a specific view so that it's top is at the top our scrollview
     func scrollToView(view:UIView, animated: Bool) {
@@ -81,16 +94,15 @@ extension UIScrollView {
 }
 
 
-import SystemConfiguration
 
 
 protocol Utilities {
 }
 
-// revisa si hay conexion a internet
+/**
+ Facilita el comprobar si hay conexión a Internet.
+ */
 extension NSObject:Utilities{
-    
-    
     enum ReachabilityStatus {
         case notReachable
         case reachableViaWWAN
@@ -138,5 +150,3 @@ extension NSObject:Utilities{
     }
     
 }
-
-

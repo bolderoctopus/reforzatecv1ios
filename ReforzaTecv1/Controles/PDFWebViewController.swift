@@ -16,14 +16,12 @@ class PDFWebViewController: UIViewController, WKUIDelegate {
     var titulo : String!
     var archivoPorAbrir: String!
     
-    
     override func loadView() {
         super.loadView()
         webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.uiDelegate = self
         view = webView
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +32,7 @@ class PDFWebViewController: UIViewController, WKUIDelegate {
     }
 
     func cargarDoc() {
-        
          let pdfURL = MateriaStruct.URL_DIRECTORIO_DOCUMENTOS().appendingPathComponent(archivoPorAbrir)
-        //if let pdfURL = Bundle.main.url(forResource: "resume", withExtension: "pdf", subdirectory: nil, localization: nil)  {
             do {
                 let data = try Data(contentsOf: pdfURL)
                
@@ -44,7 +40,6 @@ class PDFWebViewController: UIViewController, WKUIDelegate {
             }catch {
                 print("error al abrir el documento \(archivoPorAbrir)")
             }
-
     }	
 
     func colorear() {
@@ -55,8 +50,5 @@ class PDFWebViewController: UIViewController, WKUIDelegate {
             webView.tintColor = color
         }
     }
-
-
-
 }
 

@@ -130,14 +130,14 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="AbrirButton" destination="2Wb-U9-Uky" id="lpS-DG-4Kf"/>
+                <outlet property="AlturaConstraint" destination="eou-Qj-4IP" id="v1t-Gr-CDf"/>
+                <outlet property="DescripcionTextView" destination="KZm-xI-e6p" id="WB6-Oc-plv"/>
+                <outlet property="DetallesView" destination="rwo-1k-E60" id="nnp-7H-Yl5"/>
+                <outlet property="NombreLabel" destination="tRg-7K-fU4" id="KcX-V3-LJM"/>
+                <outlet property="RemoverButton" destination="77q-rB-ctJ" id="kxh-Zp-vyl"/>
+                <outlet property="TituloView" destination="0ce-rI-Klh" id="PDZ-l0-L5h"/>
                 <outlet property="VersionLabel" destination="xvt-PC-x5j" id="kbg-ue-bzS"/>
-                <outlet property="descripcionTextView" destination="KZm-xI-e6p" id="WB6-Oc-plv"/>
-                <outlet property="detailsView" destination="rwo-1k-E60" id="nnp-7H-Yl5"/>
-                <outlet property="heighConts" destination="eou-Qj-4IP" id="v1t-Gr-CDf"/>
-                <outlet property="nombreLabel" destination="tRg-7K-fU4" id="KcX-V3-LJM"/>
-                <outlet property="openButton" destination="2Wb-U9-Uky" id="lpS-DG-4Kf"/>
-                <outlet property="removeButton" destination="77q-rB-ctJ" id="kxh-Zp-vyl"/>
-                <outlet property="titleView" destination="0ce-rI-Klh" id="PDZ-l0-L5h"/>
             </connections>
             <point key="canvasLocation" x="26" y="305.5"/>
         </tableViewCell>

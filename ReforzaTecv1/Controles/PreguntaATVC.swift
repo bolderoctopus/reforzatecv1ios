@@ -7,32 +7,31 @@
 //
 
 import UIKit
-// bug con el borde inferior del textfield, no se muestra
+
 class PreguntaATVC: UITableViewCell, UITextFieldDelegate {
 
-    @IBOutlet weak var PreguntaL: UILabel!
-    @IBOutlet weak var RespuestaTF: UITextField!
+    @IBOutlet weak var PreguntaLabel: UILabel!
+    @IBOutlet weak var RespuestaTextField: UITextField!
     
     var color:  UIColor!
     var respuestaCorrecta: String!
     var indiceDataSource: Int!
     weak var delegate: GuardarDatosProtocol?
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        RespuestaTF.setBottomBorder()
-        RespuestaTF.tintColor = color
-        RespuestaTF.delegate = self
+        RespuestaTextField.setBottomBorder()
+        RespuestaTextField.tintColor = color
+        RespuestaTextField.delegate = self
     }
-    // implementando el delegado del textfield para ocultar el teclado al presionar la tecla de 'Done'
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     @IBAction func textChanged(_ sender: Any) {
-        let text = RespuestaTF.text ??  ""
+        let text = RespuestaTextField.text ??  ""
         delegate?.guardar(respuestAbierta: text, en: indiceDataSource)
     }
 

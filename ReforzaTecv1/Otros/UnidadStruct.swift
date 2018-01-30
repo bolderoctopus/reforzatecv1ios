@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ Modelo de lo que es una unidad al mostrarla en ContenidoMateria
+ */
 struct UnidadStruct {
     var nombre: String?
     var descripcion: String?

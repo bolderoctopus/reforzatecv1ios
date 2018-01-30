@@ -9,87 +9,70 @@
 import UIKit
 import Speech
 
-// TODO: Posible bug, si la respuesta correcta es 900, aceptar tambien novecientos
-
 class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {    
     
-    @IBOutlet weak var BotonMicrofonoMute: UIBarButtonItem!
+    @IBOutlet weak var MicrofonoMuteButton: UIBarButtonItem!
     @IBOutlet weak var PretuntaTextView: UITextView!
-    @IBOutlet weak var BotonRevisar: UIButton!
-    @IBOutlet weak var BotonMicrofono: UIButton!
-    @IBOutlet weak var EntradaField: UITextField!
+    @IBOutlet weak var RevisarButton: UIButton!
+    @IBOutlet weak var MicrofonoButton: UIButton!
+    @IBOutlet weak var EntradaTextField: UITextField!
     @IBOutlet weak var CalificacionImagenView: UIImageView!
     @IBOutlet weak var AlturaDeImagenConstraint: NSLayoutConstraint!
     @IBOutlet weak var IndicadorDeActividad: UIActivityIndicatorView!
     
-    private let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "es-MX"))
-    private var solicitudDeReconocimiento: SFSpeechAudioBufferRecognitionRequest?
-    private var tareaDeReconocimiento: SFSpeechRecognitionTask?
-    private let motorDeAudio = AVAudioEngine()
+    let SpeechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "es-MX"))
+    var solicitudDeReconocimiento: SFSpeechAudioBufferRecognitionRequest?
+    var tareaDeReconocimiento: SFSpeechRecognitionTask?
+    let MotorDeAudio = AVAudioEngine()
     
-    private var RespuestaCorrecta:String!
-    
-    var color: UIColor! = UIColor.cyan
-    var Ejercicios: [Ejercicio]!
-    var EjercicioActual: Ejercicio!
+    var respuestaCorrecta:String!
+    var color: UIColor!
+    var ejercicios: [Ejercicio]!
+    var ejercicioActual: Ejercicio!
     var yaFueRevisado = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        EjercicioActual = Ejercicios.removeFirst()
-        RespuestaCorrecta = EjercicioActual.respuestas!
-        PretuntaTextView.text = EjercicioActual.textos!
-        
+        ejercicioActual = ejercicios.removeFirst()
+        respuestaCorrecta = ejercicioActual.respuestas!
+        PretuntaTextView.text = ejercicioActual.textos!
 
-        BotonMicrofonoMute.tintColor = color
+        MicrofonoMuteButton.tintColor = color
         IndicadorDeActividad.tintColor = color
         IndicadorDeActividad.alpha = 0
         
-        EntradaField.text = ""
+        EntradaTextField.text = ""
         // para evitar que se muesre un teclado en el cmapo de texto
-        EntradaField.inputView = UIView()
+        EntradaTextField.inputView = UIView()
 
-        // iniciando boton
-        BotonRevisar.backgroundColor = UIColor.white
-        BotonRevisar.addTarget(self, action: #selector(accionDelBotonRevisar), for: .touchDown)
-        BotonRevisar.layer.cornerRadius = 10
-        BotonRevisar.layer.borderWidth = 1.5
-        BotonRevisar.layer.borderColor = color.cgColor
-        BotonRevisar.setTitleColor( #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1), for: .disabled)
-        BotonRevisar.isEnabled = false
+        iniciarBoton()
         
-        
-        // Ocultando la imagen
         AlturaDeImagenConstraint.constant = 0
         CalificacionImagenView.alpha = 0
         
 
-        BotonMicrofono.isEnabled = false
+        MicrofonoButton.isEnabled = false
         
-        speechRecognizer?.delegate = self
+        SpeechRecognizer?.delegate = self
         SFSpeechRecognizer.requestAuthorization({(estadoAutorizacion) in
             var habilitarBoton = false
             switch estadoAutorizacion{
             case .authorized:
-//                print("autorizaos!")
                 habilitarBoton = true
             case .denied:
-                print("denegados")
                 habilitarBoton = false
             case .notDetermined:
-                print("no determinado")
                 habilitarBoton = false
             case .restricted:
-                print("restringidos")
                 habilitarBoton = false
             }
             OperationQueue.main.addOperation {
-                self.BotonMicrofono.isEnabled = habilitarBoton
+                self.MicrofonoButton.isEnabled = habilitarBoton
             }
         })
         let ejercicioString = NSLocalizedString("Exercise", comment: "")
-        let numero = " \(5 - Ejercicios.count)/5"
+        let numero = " \(5 - ejercicios.count)/5"
         self.title = ejercicioString + numero
         
     }
@@ -106,37 +89,42 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
         }
     }
   
+    // MARK: - Otros
+    
+    func iniciarBoton() {
+        RevisarButton.backgroundColor = UIColor.white
+        RevisarButton.addTarget(self, action: #selector(accionDelBotonRevisar), for: .touchDown)
+        RevisarButton.layer.cornerRadius = 10
+        RevisarButton.layer.borderWidth = 1.5
+        RevisarButton.layer.borderColor = color.cgColor
+        RevisarButton.setTitleColor( #colorLiteral(red: 0.5741485357, green: 0.5741624236, blue: 0.574154973, alpha: 1), for: .disabled)
+        RevisarButton.isEnabled = false
+    }
+    
     @IBAction func accionDelBotonGrabar(_ sender: Any) {
-        // habilitar el boton revisar
-        BotonRevisar.isEnabled = true
-        
-        if motorDeAudio.isRunning{
-            motorDeAudio.stop()
+        RevisarButton.isEnabled = true
+        if MotorDeAudio.isRunning{
+            MotorDeAudio.stop()
             solicitudDeReconocimiento?.endAudio()
-            print("terminando solicitud de reconocimiento")
-            // bloquear boton en lo que la solicitud de reconocmiento entrga su resultado final
-            BotonMicrofono.isEnabled = false // ??
+            MicrofonoButton.isEnabled = false
         } else{
             iniciarGrabacion()
-            
         }
     }
     
     @IBAction func MuteMicrofono(_ sender: Any) {
-        if(motorDeAudio.isRunning){
+        if(MotorDeAudio.isRunning){
             detenerGrabacion()
         }
-        BotonMicrofono.isEnabled = false
-        BotonRevisar.isEnabled = true
-        self.BotonRevisar.setTitle(NSLocalizedString("Next", comment: ""), for: .normal)
+        MicrofonoButton.isEnabled = false
+        RevisarButton.isEnabled = true
+        self.RevisarButton.setTitle(NSLocalizedString("Next", comment: ""), for: .normal)
         yaFueRevisado = true
     }
     
-    
-    
     func respondioBien() -> Bool{
-        if let respuestaDelUsuario = EntradaField.text{
-            if(respuestaDelUsuario == RespuestaCorrecta){
+        if let respuestaDelUsuario = EntradaTextField.text{
+            if(respuestaDelUsuario == respuestaCorrecta){
                 return true
             }
         }
@@ -152,35 +140,35 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
         UIView.animate(withDuration: 0.5, animations: {
             self.AlturaDeImagenConstraint.constant = 64
             self.CalificacionImagenView.alpha = 1
-            self.BotonRevisar.setTitle(NSLocalizedString("Next", comment: ""), for: .normal)
+            self.RevisarButton.setTitle(NSLocalizedString("Next", comment: ""), for: .normal)
             self.yaFueRevisado = true
         })
     }
     
     func siguienteEjercicio() {
-        if let siguienteE = Ejercicios.first{
+        if let siguienteE = ejercicios.first{
             let storyBoard: UIStoryboard = (self.navigationController?.storyboard)!
             var siguienteViewController: UIViewController?
             switch siguienteE.tipo! {
             case "Voz":
                 let eVoz = storyBoard.instantiateViewController(withIdentifier: "EjercicioVozVC") as! EjercicioVozVC
                 eVoz.color = self.color
-                eVoz.Ejercicios = Ejercicios
+                eVoz.ejercicios = ejercicios
                 siguienteViewController = eVoz
             case "Opcion multiple":
                 let eOpMul = storyBoard.instantiateViewController(withIdentifier: "EjercicioOpMulVC") as! EjercicioOpMulVC
                 eOpMul.color = self.color
-                eOpMul.Ejercicios = Ejercicios
+                eOpMul.Ejercicios = ejercicios
                 siguienteViewController = eOpMul
             case "Ordenar oracion":
                 let eOrOr = storyBoard.instantiateViewController(withIdentifier: "EjercicioOrdenarVC") as! EjercicioOrdenarVC
                 eOrOr.color = self.color
-                eOrOr.Ejercicios = Ejercicios
+                eOrOr.ejercicios = ejercicios
                 siguienteViewController = eOrOr
             case "Escritura":
                 let eEs = storyBoard.instantiateViewController(withIdentifier: "EjercicioEscrituraVC") as! EjercicioEscrituraVC
                 eEs.color = self.color
-                eEs.Ejercicios = Ejercicios
+                eEs.ejercicios = ejercicios
                 siguienteViewController = eEs
             default:
                 print("Tipo de ejercicio desconocido: \(siguienteE.tipo!)")
@@ -212,14 +200,13 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
             print("Error al ponerle las propiedades a la sesion de audio")
         }
         solicitudDeReconocimiento = SFSpeechAudioBufferRecognitionRequest()
-        let nodoEntrada = motorDeAudio.inputNode
-
+        let nodoEntrada = MotorDeAudio.inputNode
         
         solicitudDeReconocimiento!.shouldReportPartialResults = true
-        tareaDeReconocimiento = speechRecognizer?.recognitionTask(with: solicitudDeReconocimiento!, resultHandler: { (resultado, error) in
+        tareaDeReconocimiento = SpeechRecognizer?.recognitionTask(with: solicitudDeReconocimiento!, resultHandler: { (resultado, error) in
             var yaTermino = false
             if resultado != nil{
-                self.EntradaField.text = resultado?.bestTranscription.formattedString
+                self.EntradaTextField.text = resultado?.bestTranscription.formattedString
                 yaTermino = (resultado?.isFinal)!
             }
             
@@ -236,41 +223,37 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
             self.solicitudDeReconocimiento?.append(buffer)
         })
         
-        motorDeAudio.prepare()
+        MotorDeAudio.prepare()
         do {
-            try 	motorDeAudio.start()
+            try 	MotorDeAudio.start()
             self.IndicadorDeActividad.startAnimating()
             UIView.animate(withDuration: 0.3, animations: {
                 self.IndicadorDeActividad.alpha = 1
             })
-            print("grabacion iniciada")
         }catch{
             print("no se pudo arrancar el motor de audio debido a un error")
         }
-        //EntradaField.text = "...";
     }
     
     func detenerGrabacion() {
-        motorDeAudio.stop()
+        MotorDeAudio.stop()
         solicitudDeReconocimiento = nil
         tareaDeReconocimiento  = nil
-        print("grabacion detenida")
-        BotonMicrofono.isEnabled = true
+        MicrofonoButton.isEnabled = true
         IndicadorDeActividad.alpha = 0
     }
     
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
         if available{
-            BotonMicrofono.isEnabled = true
+            MicrofonoButton.isEnabled = true
         }
         else {
-            BotonMicrofono.isEnabled = false
+            MicrofonoButton.isEnabled = false
         }
     }
     
     func revisarConexion() {
         if (currentReachabilityStatus == .notReachable) {
-            print("No hay conexion a internet")
             let titulo = NSLocalizedString("No Internet connection detected", comment: "")
             let mensaje = NSLocalizedString("Voice exercises requiere an Internet connection.", comment: "")
             
@@ -278,8 +261,6 @@ class EjercicioVozVC: UIViewController, SFSpeechRecognizerDelegate {
             alerta.addAction(UIAlertAction.init(title: NSLocalizedString("Dismiss", comment:""), style: .default, handler: nil))
             MuteMicrofono(self)
             self.present(alerta, animated: true)
-        }else{
-            print("si hay conexion a internet")
         }
     }
 }

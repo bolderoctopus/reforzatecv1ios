@@ -7,26 +7,28 @@
 //
 
 import UIKit
-//Renombrar a materiasDescargables?
+
 class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BtnMateriaDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+
+    let Context =  (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     var dataSource : [MateriaStruct] = []
-    let context =  (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var controlActualizar: UIRefreshControl!
-    var lastCell : MateriaDescargableCell?// = CustomTableViewCell2 ()
+    var ultimaCeldaExpandida : MateriaDescargableCell?
     var tagCeldaExpandida = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configurarTabla()
-        descargarDisponibles()//y configurar tabla
+        descargarDisponibles()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // soluciona un detalle que, luego de cargar la vista tenias que darle un click para que saliera la lista
+        
         if(dataSource.isEmpty){
             mostrarVistaVacia(true)
         }else{
@@ -34,19 +36,8 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         }
     }
     
-    
-    @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.began {
-            var touchPoint = sender.location(in: self.view)
-            touchPoint.y -= 70
-            //seria mejor restarle la altura de la barra de navegacion + barra de estado?
-            if let rowIndex = tableView.indexPathForRow(at: touchPoint) {
-                expandirCelda(numero: rowIndex.row)
-            }
-        }
-    }
-    
-//    MARK:- Cositas TableView
+
+//    MARK:- TableView
     
     func configurarTabla() {
         tableView.estimatedRowHeight = 80
@@ -68,36 +59,32 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         tableView.backgroundView?.isHidden = true
     }
     
-    // Le pone un mensaje a la table view diciendo que no se pudo recargar
     func mostrarVistaVacia(_ mostrar: Bool) {
         tableView.backgroundView?.isHidden = !mostrar
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guardarMateria(tableView.cellForRow(at: indexPath) as! MateriaDescargableCell)
     }
-    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MateriaDescargableCell", for: indexPath) as! MateriaDescargableCell
         let m = dataSource[indexPath.row]
-        cell.nombreLabel.text = m.mNombre
-        cell.descripcionTextView.text = m.mDescripcion
+        cell.NombreLabel.text = m.Nombre
+        cell.DescripcionTextView.text = m.Descripcion
         cell.cellExists = true
-        cell.detailsView.backgroundColor = Utils.colorHash(m.mNombre)
-        cell.titleView.backgroundColor = Utils.colorHash(m.mNombre)
+        cell.DetallesView.backgroundColor = Utils.colorHash(m.Nombre)
+        cell.TituloView.backgroundColor = Utils.colorHash(m.Nombre)
         cell.objMateria = m
         cell.delegate = self
-        cell.VersionLabel.text = NSLocalizedString("version", comment: "") + ": \(m.version)"
+        cell.VersionLabel.text = NSLocalizedString("version", comment: "") + ": \(m.Version)"
         UIView.animate(withDuration: 0) {
             cell.contentView.layoutIfNeeded()
         }
-        
         return cell
     }
     
@@ -107,32 +94,30 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
             tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
         }
     }
-   
     
-    
-    //MARK:- Mis metodos extras
+    //MARK:- Otros
     
     func expandirCelda(numero : Int) {
         self.tableView.beginUpdates()
         
         let previousCellTag = tagCeldaExpandida
         
-        if lastCell != nil{
-            if lastCell!.cellExists {
-                self.lastCell!.animate(duration: 0.2, c: {
+        if ultimaCeldaExpandida != nil{
+            if ultimaCeldaExpandida!.cellExists {
+                self.ultimaCeldaExpandida!.animate(duration: 0.2, c: {
                     self.view.layoutIfNeeded()
                 })
                 if numero == tagCeldaExpandida {
                     tagCeldaExpandida = -1
-                    lastCell = nil//CustomTableViewCell2()
+                    ultimaCeldaExpandida = nil
                 }
             }
         }
         
         if numero != previousCellTag {
             tagCeldaExpandida = numero
-            lastCell = (tableView.cellForRow(at: IndexPath(row: tagCeldaExpandida, section: 0)) as! MateriaDescargableCell)
-            self.lastCell!.animate(duration: 0.2, c: {
+            ultimaCeldaExpandida = (tableView.cellForRow(at: IndexPath(row: tagCeldaExpandida, section: 0)) as! MateriaDescargableCell)
+            self.ultimaCeldaExpandida!.animate(duration: 0.2, c: {
                 self.view.layoutIfNeeded()
             })
         }
@@ -141,8 +126,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     
     func guardarMateria(_ celda : MateriaDescargableCell){
         celda.estamosDescargando = true
-        
-        Downloader.bajarContenio(de: celda.objMateria!, con: context, alFinalizar: {
+        Downloader.bajarContenio(de: celda.objMateria!, con: Context, alFinalizar: {
             self.guardarContexto(celdaPorQuitar: celda)
         })
     }
@@ -150,8 +134,6 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
     func guardarContexto(celdaPorQuitar celda: MateriaDescargableCell) {
         DispatchQueue.main.async {
             (UIApplication.shared.delegate as! AppDelegate).saveContext()
-            print("context de coredata guardado" )
-            //removiendo de la lista
             self.tableView(self.tableView, commit: .delete, forRowAt: self.tableView.indexPath(for: celda)!)
         }
     }
@@ -161,7 +143,7 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
             
             var materiasCD : [Materia]
             do{
-                materiasCD = try self.context.fetch(Materia.fetchRequest()) as! [Materia]
+                materiasCD = try self.Context.fetch(Materia.fetchRequest()) as! [Materia]
             }catch {
                 print("Error al tratar de comparar materias descargadas con guardadas")
                 return
@@ -172,7 +154,6 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
                 guardar = true
                 for mg in materiasCD{
                     if(md.key == Int(mg.idMateria)){
-                        //no guardar
                         guardar = false
                         break
                     }
@@ -185,7 +166,18 @@ class MateriasDisponiblesViewController: UIViewController, UITableViewDelegate, 
         })
     }
     
+    @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.began {
+            var touchPoint = sender.location(in: self.view)
+            touchPoint.y -= 70
+            if let rowIndex = tableView.indexPathForRow(at: touchPoint) {
+                expandirCelda(numero: rowIndex.row)
+            }
+        }
+    }
+    
     //MARK:- Delegados
+    
     func btnDescargarDelegate(_ row : MateriaDescargableCell) {
         guardarMateria(row)
     }

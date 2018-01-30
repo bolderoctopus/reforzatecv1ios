@@ -123,13 +123,13 @@
             </tableViewCellContentView>
             <gestureRecognizers/>
             <connections>
+                <outlet property="AlturaConstraint" destination="SHW-q9-V4e" id="kKX-RI-gm5"/>
+                <outlet property="DescargarButton" destination="ULT-xg-5W4" id="ezG-os-Mby"/>
+                <outlet property="DescripcionTextView" destination="wIg-Ng-fHZ" id="rJJ-sA-B0m"/>
+                <outlet property="DetallesView" destination="pGM-tS-Z9g" id="bqY-ae-S30"/>
+                <outlet property="NombreLabel" destination="piv-on-IfS" id="sTt-DM-Qsu"/>
+                <outlet property="TituloView" destination="NhF-Tx-yI4" id="APN-l7-4Jj"/>
                 <outlet property="VersionLabel" destination="XjV-uL-4gV" id="fpX-wS-O8H"/>
-                <outlet property="descripcionTextView" destination="wIg-Ng-fHZ" id="rJJ-sA-B0m"/>
-                <outlet property="detailsView" destination="pGM-tS-Z9g" id="bqY-ae-S30"/>
-                <outlet property="downButton" destination="ULT-xg-5W4" id="ezG-os-Mby"/>
-                <outlet property="heightCons" destination="SHW-q9-V4e" id="kKX-RI-gm5"/>
-                <outlet property="nombreLabel" destination="piv-on-IfS" id="sTt-DM-Qsu"/>
-                <outlet property="titleView" destination="NhF-Tx-yI4" id="APN-l7-4Jj"/>
             </connections>
             <point key="canvasLocation" x="61" y="247"/>
         </tableViewCell>

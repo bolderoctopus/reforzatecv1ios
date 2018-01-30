@@ -8,12 +8,10 @@
 
 import UIKit
 
-
-
-
 class PreguntaOMTVC: UITableViewCell {
-    @IBOutlet weak var PreguntaL: UILabel!
-    @IBOutlet weak var OpcionesSV: UIStackView!
+    @IBOutlet weak var PreguntaLabel: UILabel!
+    @IBOutlet weak var OpcionesStackView: UIStackView!
+    
     var color: UIColor!
     var opcionesIncorrectas: [String]!
     var opcionCorrecta: String!
@@ -25,17 +23,12 @@ class PreguntaOMTVC: UITableViewCell {
     }
     
     override func prepareForReuse() {        
-        let botones = OpcionesSV.arrangedSubviews
+        let botones = OpcionesStackView.arrangedSubviews
         for boton in botones{
             boton.removeFromSuperview()
         }
         delegate?.guaradar(RespuestasMultiples: botones, en: indiceDataSource)
         super.prepareForReuse()
-    }
-    
-    func revisar() -> Bool{
-        let esCorrecto = true
-        return esCorrecto
     }
     
 }

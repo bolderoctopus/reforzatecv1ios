@@ -28,7 +28,7 @@ class Utils :  NSObject {
      debería devolver el mismo resultado según la cadena dada ya sea en simulador o en diferentes dispositivos.
      */
     static  func strHash(_ str: String) -> UInt64 {
-        var result = UInt64(5368911902)
+        var result = UInt64(1234567809)
         let buf = [UInt8](str.utf8)
         for b in buf {
             result = 127 * (result & 0x00ffffffffffffff) + UInt64(b)
